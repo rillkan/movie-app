@@ -5,7 +5,7 @@ const MovieLists = () => {
 
   useEffect(() => {
     // Fetch movies from OMDB API
-    fetch("http://www.omdbapi.com/?s=star wars&apikey=eb03f9ad")
+    fetch("https://www.omdbapi.com/?s=star wars&apikey=eb03f9ad")
       .then((response) => response.json())
       .then((data) => {
         if (data.Search) {
