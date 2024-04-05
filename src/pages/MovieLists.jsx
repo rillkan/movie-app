@@ -10,8 +10,8 @@ const MovieLists = () => {
       .then((data) => {
         if (data.Search) {
           // Merge fetched movies with hardcoded movies
-          const mergedMovies = [...data.Search, ...movies];
-          setMovies(mergedMovies);
+          /*           const mergedMovies = [...data.Search, ...movies]; */
+          setMovies(data.Search);
         }
       })
       .catch((error) => console.error("Error fetching movies:", error));
