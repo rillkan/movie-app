@@ -3,7 +3,7 @@ import { auth } from "../firebase"; //import auth from firebase.js
 
 export const AuthContext = createContext(); //This creates a context object using createContext(). This context will be used to pass down authentication-related data to child components.
 
-export function AuthProvider({ children }) {//Takes children as a prop. CHECK ALL PAGES for auth
+export function AuthProvider({ children }) {//Export out a function to App.jsx that takes children as a prop. CHECK ALL PAGES for auth
   const [currentUser, setCurrentUser] = useState(null); //currentUser helps keep track of the currently logged-in user, its set to null initally cuz no user is logged in yet
   const [loading, setLoading] = useState(true);//loading indicate whether the application is still loading or not
   console.log(`This are children from AuthProvider:`, children) //children are components wrapped in AuthProvider, at App.jsx
@@ -37,3 +37,4 @@ export function AuthProvider({ children }) {//Takes children as a prop. CHECK AL
     </AuthContext.Provider>
   );
 }
+

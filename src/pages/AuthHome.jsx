@@ -1,12 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, Button, Col, Modal, Row, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
-
 import { /* FacebookAuthProvider, GoogleAuthProvider, */ createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, /* signInWithPopup, */ } from "firebase/auth"
 import { AuthContext } from "../components/AuthProvider";
 
-export default function Welcome() {
+export default function AuthHome() {
 
   /* Conditional rendering to switch Sign Up : Login*/
   const [modalShow, setModalShow] = useState(null);
@@ -23,6 +21,7 @@ export default function Welcome() {
 
   useEffect(() => { //if there is prescense of currentUser, sent user to home page. 
     if (currentUser) {
+      console.log(`TRIGGERING AGAIN EVEN WHEN LOGGED IN`)
       navigate("/home")
     }
   }, [currentUser, navigate])
@@ -130,7 +129,7 @@ export default function Welcome() {
               <Form.Group controlId="formBasicEmail">
                 <Form.Control
                   onChange={(e) => setUsername(e.target.value)}
-                  type="email" placeholder="Enter Username" />
+                  type="email" placeholder="Enter Email" />
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">
