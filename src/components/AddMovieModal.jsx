@@ -4,23 +4,22 @@ import { Modal, Form, Button, Container } from "react-bootstrap";
 import { AuthContext } from "./AuthProvider";
 
 export default function AddMovieModal({ show, handleClose }) {
-
-  const [description, setDescription] = useState("")
+  const [userReview, setUserReview] = useState("")
   const [date, setDate] = useState("");
 
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext) //extract currentUser from AuthProvider using useContext
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = {
-      description: description,
-      date: new Date(date).toISOString().split("T")[0],
+      user_Review: userReview,
+      date_Watched: new Date(date).toISOString().split("T")[0],
       user_uid: currentUser.uid
     };
 
     axios
-      .post("", data)
+      .post("https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev/addmovies", data)
       .then((response) => {
         console.log("Success:", response.data);
         handleClose();
@@ -40,21 +39,21 @@ export default function AddMovieModal({ show, handleClose }) {
         <Container fluid>
           {/* <img src={movie.Poster} /> */}
           <Modal.Header closeButton></Modal.Header>
-          <h1 className="">I watched..</h1>
+          <h1 className="">Whats your opinion?</h1>
           <Modal.Body>
             <Form onSubmit={handleSubmit}>
 
               <Form.Group controlId="description">
-                <Form.Label>Description</Form.Label>
+                <Form.Label>Review</Form.Label>
                 <Form.Control
                   type="text"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={userReview}
+                  onChange={(e) => setUserReview(e.target.value)}
                 />
               </Form.Group>
 
               <Form.Group controlId="date">
-                <Form.Label>Date</Form.Label>
+                <Form.Label>Date Watched</Form.Label>
                 <Form.Control
                   type="date"
                   value={date}
@@ -63,7 +62,6 @@ export default function AddMovieModal({ show, handleClose }) {
                 />
               </Form.Group>
 
-
               <Button variant="primary" type="submit">
                 Submit
               </Button>
@@ -71,16 +69,6 @@ export default function AddMovieModal({ show, handleClose }) {
           </Modal.Body>
         </Container >
       </Modal>
-
-
-
     </>
   )
 }
-
-
-
-
-
-
-

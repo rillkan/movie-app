@@ -4,8 +4,6 @@ import { Button } from "react-bootstrap";
 import AddMovieModal from "../components/AddMovieModal";
 import { Link } from "react-router-dom";
 
-
-
 const MovieLists = () => {
   const { searchValue } = useContext(SearchContext) // Get searchValue from context
   const [movies, setMovies] = useState([]);
