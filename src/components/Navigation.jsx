@@ -35,7 +35,7 @@ export default function Navigation() {
         <Container>
           <Navbar.Brand href="/home">
             <img src={logo} alt="Logo" style={{ maxWidth: "100px", maxHeight: "50px" }} />
-            letterboxd
+            letterboxd at home
           </Navbar.Brand>
 
           <Nav className="me-auto">

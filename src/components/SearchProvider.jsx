@@ -12,8 +12,6 @@ export const SearchProvider = ({ children }) => { // Creating a provider compone
     </SearchContext.Provider>
   );
 };
-
-
 /*
 Old comment
 import { createContext, useState } from 'react'; //imported from the 'react' library. 

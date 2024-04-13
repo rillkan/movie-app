@@ -1,8 +1,11 @@
+//MovieLists.jsx
 import { useEffect, useState } from "react";
 import { auth } from "../firebase"
 import { Button, Table } from "react-bootstrap";
 
-export default function MyMovieLists() {
+
+export default function MovieLists() {
+
   const [userMovieLists, setUserMovieLists] = useState([])
 
   const fetchPersonalMovieLists = (userId) => {
@@ -49,9 +52,6 @@ export default function MyMovieLists() {
       <thead>
         <tr>
           <th>No</th>
-          <th>Poster</th>
-          <th>Movie Title</th>
-          <th>Movie Director</th>
           <th>Review</th>
           <th>Date</th>
           <th>Action Buttons</th>
@@ -61,7 +61,6 @@ export default function MyMovieLists() {
         {userMovieLists.length > 0 && userMovieLists.map((BANANA, index) => (
           <tr key={index}>
             <td>{index + 1}</td>
-
             <td>{BANANA.personal_review}</td>
             <td>{formatDate(BANANA.date_watched)}</td>
             <td>

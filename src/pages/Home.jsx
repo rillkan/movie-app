@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import AddMovieModal from "../components/AddMovieModal";
 import { Link } from "react-router-dom";
 
-const MovieLists = () => {
+export default function Home() {
   const { searchValue } = useContext(SearchContext) // Get searchValue from context
   const [movies, setMovies] = useState([]);
   const [selectMovieID, setSelectMovieID] = useState(null)
@@ -28,7 +28,14 @@ const MovieLists = () => {
   }, [searchValue]); // Re-run effect when searchValue changes
 
 
-  const handleClose = () => setSelectMovieID(null) //Reset the movieID back to null when modal is close
+  const handleClose = (movieData) => {
+    setSelectMovieID(null); // Reset the movieID back to null when modal is closed
+    if (movieData) {
+      setMovies(prevMovies => [...prevMovies, movieData]); // Add the new movie data to the movies array
+    }
+  }
+
+  /*   const handleClose = () => setSelectMovieID(null) //Reset the movieID back to null when modal is close */
 
   const handleShow = (movieId) => {
     console.log(`Movie ID: ${movieId}`)
@@ -49,7 +56,7 @@ const MovieLists = () => {
               <Button onClick={() => handleShow(movie.imdbID)}>Favourites</Button> {/* This arrow function ensures that handleShow is not called immediately during rendering, but only when the button is clicked. If remove, it will trigger immediately */}
             </div>
           ))}
-          <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} /> {/* Modal only shows if movieID is not null */}
+          <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} movieData={movies.find(movie => movie.imdbID === selectMovieID)} /> {/* Modal only shows if movieID is not null */}
         </div>
       </div>
     </div>
@@ -57,6 +64,5 @@ const MovieLists = () => {
 
 
   );
-};
+}
 
-export default MovieLists;
