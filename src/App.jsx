@@ -7,14 +7,13 @@ import Home from "./pages/Home";
 import MovieLists from "./pages/MovieLists";
 import Navigation from "./components/Navigation";
 import MovieDetails from "./pages/MovieDetails"
-/* import { MovieDataProvider } from "./components/MovieData"; */
 
 
 export default function App() {
+
   return (
     <AuthProvider>
-      {/*       <MovieDataProvider> */}
-      <SearchProvider> {/* Wrap your entire application with SearchProvider */}
+      <SearchProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Navigation />}>
@@ -27,7 +26,7 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       </SearchProvider>
-      {/*       </MovieDataProvider> */}
+
 
     </AuthProvider>
   );

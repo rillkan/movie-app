@@ -4,7 +4,9 @@ import { auth } from "../firebase"
 import { Button, Table } from "react-bootstrap";
 
 
-export default function MovieLists() {
+export default function MovieLists(movieData) {
+
+  console.log("movieData:", movieData);
 
   const [userMovieLists, setUserMovieLists] = useState([])
 

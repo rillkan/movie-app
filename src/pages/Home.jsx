@@ -1,3 +1,4 @@
+//Home.jsx
 import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../components/SearchProvider" // Import the UseSearch context
 import { Button } from "react-bootstrap";
@@ -16,16 +17,38 @@ export default function Home() {
     const responseJson = await response.json();
 
     if (responseJson.Response === "True") {
-      setMovies(responseJson.Search);
+      setMovies(responseJson.Search); //updates the movies array from [] to fetching movies from searchQuery
     } else {
       setMovies([]);
       console.error(responseJson.Error);
     }
   };
 
-  useEffect(() => {
-    requestMovie(searchValue); // Use searchValue from context
+  const moviesToDisplay = async () => {
+    try {
+      const response = await fetch(`https://www.omdbapi.com/?s=avengers&apikey=eb03f9ad`);
+      const data = await response.json();
+      if (data.Response === "True") {
+        setMovies(prevMovies => [...prevMovies, ...data.Search]);
+      } else {
+        console.error(data.Error);
+      }
+    } catch (error) {
+      console.error('Error fetching movie data:', error);
+    }
+  };
+
+  useEffect(() => { //renders automatically when App renders
+    if (!searchValue) {
+      moviesToDisplay();
+    } else {
+      requestMovie(searchValue); // Use searchValue from context
+    }
   }, [searchValue]); // Re-run effect when searchValue changes
+
+  if (movies.length === 0) {
+    return <div>Loading...</div>;
+  }
 
 
   const handleClose = (movieData) => {
@@ -60,9 +83,6 @@ export default function Home() {
         </div>
       </div>
     </div>
-
-
-
   );
 }
 
