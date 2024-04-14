@@ -4,51 +4,30 @@ import { SearchContext } from "../components/SearchProvider" // Import the UseSe
 import { Button } from "react-bootstrap";
 import AddMovieModal from "../components/AddMovieModal";
 import { Link } from "react-router-dom";
+import Hero from "../components/Carousel";
 
 export default function Home() {
   const { searchValue } = useContext(SearchContext) // Get searchValue from context
   const [movies, setMovies] = useState([]);
   const [selectMovieID, setSelectMovieID] = useState(null)
 
-  const requestMovie = async (searchQuery) => {
+  const requestMovie = async (searchQuery) => { //updates the movies array from [] to fetching movies from searchQuery
     const url = `https://www.omdbapi.com/?s=${searchQuery}&apikey=eb03f9ad`;
 
     const response = await fetch(url);
     const responseJson = await response.json();
 
     if (responseJson.Response === "True") {
-      setMovies(responseJson.Search); //updates the movies array from [] to fetching movies from searchQuery
+      setMovies(responseJson.Search);
     } else {
       setMovies([]);
       console.error(responseJson.Error);
     }
   };
 
-  const moviesToDisplay = async () => {
-    try {
-      const response = await fetch(`https://www.omdbapi.com/?s=avengers&apikey=eb03f9ad`);
-      const data = await response.json();
-      if (data.Response === "True") {
-        setMovies(prevMovies => [...prevMovies, ...data.Search]);
-      } else {
-        console.error(data.Error);
-      }
-    } catch (error) {
-      console.error('Error fetching movie data:', error);
-    }
-  };
-
-  useEffect(() => { //renders automatically when App renders
-    if (!searchValue) {
-      moviesToDisplay();
-    } else {
-      requestMovie(searchValue); // Use searchValue from context
-    }
+  useEffect(() => {
+    requestMovie(searchValue); // Use searchValue from context
   }, [searchValue]); // Re-run effect when searchValue changes
-
-  if (movies.length === 0) {
-    return <div>Loading...</div>;
-  }
 
 
   const handleClose = (movieData) => {
@@ -68,6 +47,9 @@ export default function Home() {
   return (
     <div className="bg-dark text-white">
       <h1>All Movies</h1>
+      <main>
+        <Hero />
+      </main>
       <div className="container-fluid movie-app">
         <div className="row">
           {movies.map((movie) => (
@@ -83,6 +65,9 @@ export default function Home() {
         </div>
       </div>
     </div>
+
+
+
   );
 }
 
