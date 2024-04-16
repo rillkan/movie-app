@@ -1,13 +1,13 @@
-import { createContext, useState } from 'react'; // Importing createContext and useState hooks from the 'react' library.
+import { createContext, useState } from 'react';
 
-export const SearchContext = createContext(); // Creating a context variable called SearchContext and exporting it.
+export const SearchContext = createContext();
 
-export const SearchProvider = ({ children }) => { // Creating a provider component called SearchProvider and exporting it. It takes children as a parameter.
-  const [searchValue, setSearchValue] = useState(''); // Defining a state variable searchValue and its setter function setSearchValue with an initial value of an empty string.
+export const SearchProvider = ({ children }) => {
+  const [searchValue, setSearchValue] = useState('');
+  const [movies, setMovies] = useState([]); // Initialize movies state with an empty array
 
-  // Returning the context provider with the value of searchValue and setSearchValue, making them accessible to all children components that use the UseSearch hook.
   return (
-    <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+    <SearchContext.Provider value={{ searchValue, setSearchValue, movies, setMovies }}>
       {children}
     </SearchContext.Provider>
   );

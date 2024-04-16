@@ -48,7 +48,7 @@ export default function Home() {
   console.log(movies)
 
   return (
-    <div className="bg-dark text-white">
+    <div className="bg-dark text-white" style={{ height: '2000px' }}>
       <h1>All Moviess</h1>
       <main>
         <Hero />
@@ -60,6 +60,7 @@ export default function Home() {
               <Link to={`/moviedetails/${movie.imdbID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <img src={movie.Poster} alt={movie.Title} />
                 <p>{movie.Title} ({movie.Year})</p>
+                <p>{movie.Director}</p>
               </Link>
               <Button onClick={() => handleShow(movie.imdbID)}>Favourites</Button> {/* This arrow function ensures that handleShow is not called immediately during rendering, but only when the button is clicked. If remove, it will trigger immediately */}
             </div>

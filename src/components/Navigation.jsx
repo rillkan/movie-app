@@ -1,4 +1,4 @@
-// Navigation.js
+// Navigation.jsx
 
 import { getAuth } from "firebase/auth";
 import { AuthContext } from "../components/AuthProvider";
