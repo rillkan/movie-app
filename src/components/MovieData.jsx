@@ -18,12 +18,12 @@ export const MovieDataProvider = ({ children }) => {
 
 /****************************************************************************** */
 
-/* import { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export const MovieDataContext = createContext();
 
 export const MovieDataProvider = ({ children }) => {
-  const [movieData, setMovieData] = useState({});
+  const [favouriteMovieData, setFavouriteMovieData] = useState({});
 
   const movies = []; // Replace this with your actual list of movies
 
@@ -32,9 +32,9 @@ export const MovieDataProvider = ({ children }) => {
   };
 
   return (
-    <MovieDataContext.Provider value={{ movieData, setMovieData, findMovieById }}>
+    <MovieDataContext.Provider value={{ favouriteMovieData, setFavouriteMovieData, findMovieById }}>
       {children}
     </MovieDataContext.Provider>
   );
-}; */
+};
 

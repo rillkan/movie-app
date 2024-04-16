@@ -6,6 +6,7 @@ import AddMovieModal from "../components/AddMovieModal";
 import { Link } from "react-router-dom";
 import Hero from "../components/Carousel";
 
+
 export default function Home() {
   const { searchValue } = useContext(SearchContext) // Get searchValue from context
   const [movies, setMovies] = useState([]);
@@ -44,9 +45,11 @@ export default function Home() {
     setSelectMovieID(movieId)
   }
 
+  console.log(movies)
+
   return (
     <div className="bg-dark text-white">
-      <h1>All Movies</h1>
+      <h1>All Moviess</h1>
       <main>
         <Hero />
       </main>
@@ -61,13 +64,11 @@ export default function Home() {
               <Button onClick={() => handleShow(movie.imdbID)}>Favourites</Button> {/* This arrow function ensures that handleShow is not called immediately during rendering, but only when the button is clicked. If remove, it will trigger immediately */}
             </div>
           ))}
-          <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} movieData={movies.find(movie => movie.imdbID === selectMovieID)} /> {/* Modal only shows if movieID is not null */}
+          <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} favouriteMovieData={movies.find(movie => movie.imdbID === selectMovieID)} /> {/* Modal only shows if movieID is not null */}
+          {/* <MovieLists /> */}
         </div>
       </div>
     </div>
-
-
-
   );
 }
 

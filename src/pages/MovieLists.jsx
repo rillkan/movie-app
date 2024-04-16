@@ -4,9 +4,7 @@ import { auth } from "../firebase"
 import { Button, Table } from "react-bootstrap";
 
 
-export default function MovieLists(movieData) {
-
-  console.log("movieData:", movieData);
+export default function MovieLists() {
 
   const [userMovieLists, setUserMovieLists] = useState([])
 
@@ -19,6 +17,7 @@ export default function MovieLists(movieData) {
         setUserMovieLists(data);
       })
       .catch((error) => console.error("Error:", error));
+    fetch()
   }
 
   useEffect(() => {
@@ -54,23 +53,32 @@ export default function MovieLists(movieData) {
       <thead>
         <tr>
           <th>No</th>
+          <th>Poster</th>
+          <th>Film Title</th>
+          <th>Released</th>
           <th>Review</th>
           <th>Date</th>
-          <th>Action Buttons</th>
+          <th>No Function</th>
         </tr>
       </thead>
       <tbody>
-        {userMovieLists.length > 0 && userMovieLists.map((BANANA, index) => (
+        {userMovieLists.length > 0 && userMovieLists.map((userInputMovieData, index) => (
           <tr key={index}>
             <td>{index + 1}</td>
-            <td>{BANANA.personal_review}</td>
-            <td>{formatDate(BANANA.date_watched)}</td>
+            <td>{userInputMovieData.movie_poster}</td>
+            <td>{userInputMovieData.movie_name}</td>
+            <td>{userInputMovieData.movie_year}</td>
+            <td>{userInputMovieData.personal_review}</td>
+            <td>{formatDate(userInputMovieData.date_watched)}</td>
             <td>
               <Button
                 variant="danger"
-                onClick={() => handleDelete(BANANA.id)} // Assuming movie ID is accessible as movielists.id
+                onClick={() => handleDelete(userInputMovieData.id)} // Assuming movie ID is accessible as movielists.id
               >
                 Delete
+              </Button>
+              <Button className="ms-3" variant="success">
+                Update
               </Button>
             </td>
           </tr>

@@ -15,8 +15,8 @@ const heroData = [
   {
     id: 2,
     image: image2,
-    title: "The Lego Movie",
-    description: 'An ordinary LEGO construction worker, thought to be the prophesied as "special", is recruited to join a quest to stop an evil tyrant from gluing the LEGO universe into eternal stasis.'
+    title: "Blade Runner 2049",
+    description: "Young Blade Runner K's discovery of a long-buried secret leads him to track down former Blade Runner Rick Deckard, who's been missing for thirty years."
   },
   {
     id: 3,

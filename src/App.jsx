@@ -26,8 +26,6 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       </SearchProvider>
-
-
     </AuthProvider>
   );
 }

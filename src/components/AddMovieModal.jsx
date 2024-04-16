@@ -4,26 +4,31 @@ import { useContext, useState } from "react";
 import { Modal, Form, Button, Container, Row, Col } from "react-bootstrap";
 import { AuthContext } from "./AuthProvider";
 
-export default function AddMovieModal({ show, handleClose, movieData }) {
+export default function AddMovieModal({ show, handleClose, favouriteMovieData }) {
   const [userReview, setUserReview] = useState("")
   const [date, setDate] = useState("");
+  /* const {Poster, Title, Year} = favouriteMovieData */
 
   const { currentUser } = useContext(AuthContext) //extract currentUser from AuthProvider using useContext
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const { Poster, Title, Year } = favouriteMovieData
+
     const data = {
       user_Review: userReview,
       date_Watched: new Date(date).toISOString().split("T")[0],
       user_uid: currentUser.uid,
-      movie_Data: movieData
+      movieData: { Poster, Title, Year }
     };
 
-    console.log(movieData)
+
+    console.log('This is the movie data I click Favourite: ', favouriteMovieData)
+
 
     axios
-      .post("https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev/addmovies", data)
+      .post("https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev/addallmoviedetails", data)
       .then((response) => {
         console.log("Success:", response.data);
         handleClose();
@@ -46,14 +51,14 @@ export default function AddMovieModal({ show, handleClose, movieData }) {
           <Modal.Body>
             <Row>
               <Col md={6}>
-                {movieData && (
+                {favouriteMovieData && (
                   <div>
                     <img
-                      src={movieData.Poster}
-                      alt={movieData.Title}
+                      src={favouriteMovieData.Poster}
+                      alt={favouriteMovieData.Title}
                       style={{ maxWidth: "100%", maxHeight: "200px" }}
                     />
-                    <h2>{movieData.Title}</h2>
+                    <h2>{favouriteMovieData.Title}</h2>
                   </div>
                 )}
               </Col>
