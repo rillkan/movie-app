@@ -75,6 +75,7 @@ export const deleteMovie = createAsyncThunk(
         if (user) {
           try {
             const response = await axios.delete(`${BASE_URL}/delete/${movie_id}`);
+            console.log("Movie deleted successfully:", movie_id);
             resolve(response.data);
           } catch (error) {
             reject(error);

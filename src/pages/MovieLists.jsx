@@ -1,6 +1,5 @@
 //MovieLists.jsx
-import { useEffect } from "react";
-import { auth } from "../firebase"
+import { useContext, useEffect } from "react";
 import { Button, Table, Spinner } from "react-bootstrap";
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
@@ -8,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMoviesByUser } from "../features/posts/moviesSlice";
 import { deleteMovie } from "../features/posts/moviesSlice";
+import { AuthContext } from "../components/AuthProvider";
 
 export default function MovieLists() {
 
@@ -15,19 +15,14 @@ export default function MovieLists() {
   //RECEIVER
   const userMovieLists = useSelector((state) => state.movies.movies2)
   const loading = useSelector((state) => state.movies.loading)
+  const { currentUser } = useContext(AuthContext);
 
+  const userId = currentUser.uid
   useEffect(() => { //useEffect triggers automatically when component is mounted
     // Firebase provides a method to observe authentication state changes
-    return auth.onAuthStateChanged(user => { // auth.onAuthStateChanged gives access to user
-      if (user) { //if user is true...
-        // If user is authenticated, you can get their UID
-        console.log(`My user.uid:`, user.uid)
-        const userId = user.uid; //change to userId, not necessarily but make sure to follow whatever u name it as
-        dispatch(fetchMoviesByUser(userId)) //SENDER
-      }
-    });
+    dispatch(fetchMoviesByUser(userId)) //SENDER);
     // Clean up the subscription when the component unmounts
-  }, [dispatch]); //only triggers when it dispatches
+  }, [dispatch, userId]); //only triggers when it dispatches
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -57,9 +52,13 @@ export default function MovieLists() {
     );
   };
 
-  const handleDelete = (movie_id) => {
-    dispatch(deleteMovie(movie_id));
+  const handleDelete = async (movie_id) => {
+    const response = dispatch(deleteMovie(movie_id));
+    const data = response.json()
+    console.log({ data })
+    console.log(`From Delete:`, response)
     console.log("Deleting movie with ID:", movie_id);
+    dispatch(fetchMoviesByUser(userId))
   };
 
   const handleUpdate = (movie_id) => {
@@ -96,7 +95,7 @@ export default function MovieLists() {
             <td>
               <Button
                 variant="danger"
-                onClick={() => handleDelete(userInputMovieData.id)}
+                onClick={() => handleDelete(userInputMovieData.movie_id)}
               >
                 Delete
               </Button>
