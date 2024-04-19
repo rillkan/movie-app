@@ -66,7 +66,6 @@ export default function Home() {
             </div>
           ))}
           <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} favouriteMovieData={movies.find(movie => movie.imdbID === selectMovieID)} /> {/* Modal only shows if movieID is not null */}
-          {/* <MovieLists /> */}
         </div>
       </div>
     </div>

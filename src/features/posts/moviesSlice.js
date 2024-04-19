@@ -70,21 +70,25 @@ export const saveMovie = createAsyncThunk(
 export const deleteMovie = createAsyncThunk(
   "movies/deleteMovie",
   async (movie_id) => {
-    return new Promise((resolve, reject) => {
-      auth.onAuthStateChanged(async user => {
-        if (user) {
-          try {
-            const response = await axios.delete(`${BASE_URL}/delete/${movie_id}`);
-            console.log("Movie deleted successfully:", movie_id);
-            resolve(response.data);
-          } catch (error) {
-            reject(error);
-          }
-        }
-      });
-    });
+    const response = await axios.delete(`${BASE_URL}/delete/${movie_id}`);
+    console.log(`Response: `, response)
+    console.log("Movie deleted successfully:", movie_id);
+    return response.data
   }
 );
+
+export const updateMovie = createAsyncThunk(
+  "movies/updateMovie",
+  async ({ user_Review, date, movie_rating, movie_id }) => {
+    const data = {
+      user_Review: user_Review,
+      date_watched: new Date(date).toISOString().split("T")[0],
+      movie_rating: movie_rating
+    };
+    const response = await axios.put(`${BASE_URL}/movies/${movie_id}`, data)
+    return response
+  }
+)
 
 const moviesSlice = createSlice({
   name: "movies",
@@ -101,8 +105,16 @@ const moviesSlice = createSlice({
     })
     builder.addCase(deleteMovie.fulfilled, (state, action) => {
       // Logic to remove the deleted movie from state
-      state.movies2 = state.movies2.filter(movie => movie.movie_id !== action.payload.movie_id);
+      console.log(`This is action.payload: `, action.payload)
+      state.movies2 = state.movies2.filter(banana => banana.movie_id !== action.payload.idReplit);
     });
+    builder.addCase(updateMovie.fulfilled, (state, action) => {
+      const updatedMovie = action.payload
+      const index = state.todos.findIndex((movie) => movie.movie_id === updatedMovie.movie_id)
+      if (index !== -1) {
+        state.movies2[index] = updatedMovie
+      }
+    })
   }
 })
 

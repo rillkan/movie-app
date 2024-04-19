@@ -1,5 +1,5 @@
 //MovieLists.jsx
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Table, Spinner } from "react-bootstrap";
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMoviesByUser } from "../features/posts/moviesSlice";
 import { deleteMovie } from "../features/posts/moviesSlice";
 import { AuthContext } from "../components/AuthProvider";
+import UpdateMovieModal from "../components/UpdateMovieModal"
 
 export default function MovieLists() {
 
@@ -16,6 +17,7 @@ export default function MovieLists() {
   const userMovieLists = useSelector((state) => state.movies.movies2)
   const loading = useSelector((state) => state.movies.loading)
   const { currentUser } = useContext(AuthContext);
+  const [showUpdateModal, setShowUpdateModal] = useState(false)
 
   const userId = currentUser.uid
   useEffect(() => { //useEffect triggers automatically when component is mounted
@@ -54,14 +56,12 @@ export default function MovieLists() {
 
   const handleDelete = async (movie_id) => {
     const response = dispatch(deleteMovie(movie_id));
-    const data = response.json()
-    console.log({ data })
     console.log(`From Delete:`, response)
     console.log("Deleting movie with ID:", movie_id);
-    dispatch(fetchMoviesByUser(userId))
   };
 
   const handleUpdate = (movie_id) => {
+    setShowUpdateModal(true);
     console.log("Updating movie with ID:", movie_id);
   };
 
@@ -99,13 +99,15 @@ export default function MovieLists() {
               >
                 Delete
               </Button>
-              <Button className="ms-3" variant="success" onClick={() => handleUpdate(userInputMovieData.id)} >
+              <Button className="ms-3" variant="success" onClick={() => handleUpdate(userInputMovieData.movie_id)} >
                 Update
               </Button>
             </td>
           </tr>
         ))}
       </tbody>
+      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} />
     </Table>
+
   )
 }

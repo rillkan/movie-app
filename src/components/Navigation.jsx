@@ -56,6 +56,7 @@ export default function Navigation() {
 
           <div className="d-flex align-items-center"> {/* Added a div to properly align username and search */}
             <div className="me-3 text-light">Hello {username}</div> {/* Display username */}
+            <Button href="/profilepage">Profile Page</Button>
 
             <Form className="d-flex">
               <Form.Control

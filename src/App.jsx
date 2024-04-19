@@ -9,6 +9,8 @@ import Navigation from "./components/Navigation";
 import MovieDetails from "./pages/MovieDetails"
 import { Provider } from "react-redux";
 import store from "./store"
+import ProfilePage from "./pages/ProfilePage"
+/* import { FavouriteMovieData } from "./components/FavouriteMovieData"; */
 
 
 export default function App() {
@@ -16,10 +18,12 @@ export default function App() {
   return (
     <Provider store={store}>
       <AuthProvider>
+        {/*         <FavouriteMovieData> */}
         <SearchProvider>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Navigation />}>
+                <Route path="/profilepage" element={<ProfilePage />} />
                 <Route path="/movielists" element={<MovieLists />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/moviedetails/:id" element={<MovieDetails />} />
@@ -29,6 +33,8 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </SearchProvider>
+        {/*         </FavouriteMovieData> */}
+
       </AuthProvider>
     </Provider>
 
