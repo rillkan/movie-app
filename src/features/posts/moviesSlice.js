@@ -79,16 +79,17 @@ export const deleteMovie = createAsyncThunk(
 
 export const updateMovie = createAsyncThunk(
   "movies/updateMovie",
-  async ({ user_Review, date, movie_rating, movie_id }) => {
+  async ({ personal_review, date_watched, movie_rating, movie_id }) => {
     const data = {
-      user_Review: user_Review,
-      date_watched: new Date(date).toISOString().split("T")[0],
-      movie_rating: movie_rating
+      personal_review: personal_review,
+      date_watched: date_watched,
+      movie_rating: movie_rating,
     };
-    const response = await axios.put(`${BASE_URL}/movies/${movie_id}`, data)
-    return response
+    const response = await axios.put(`${BASE_URL}/movies/${movie_id}`, data);
+    return response.data;
   }
-)
+);
+
 
 const moviesSlice = createSlice({
   name: "movies",
@@ -110,7 +111,8 @@ const moviesSlice = createSlice({
     });
     builder.addCase(updateMovie.fulfilled, (state, action) => {
       const updatedMovie = action.payload
-      const index = state.todos.findIndex((movie) => movie.movie_id === updatedMovie.movie_id)
+      console.log(`This is updatedMovie:`, updatedMovie)
+      const index = state.movies2.findIndex((movie) => movie.movie_id === updatedMovie.movie_id)
       if (index !== -1) {
         state.movies2[index] = updatedMovie
       }

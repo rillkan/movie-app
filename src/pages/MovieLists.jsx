@@ -11,6 +11,7 @@ import { AuthContext } from "../components/AuthProvider";
 import UpdateMovieModal from "../components/UpdateMovieModal"
 
 export default function MovieLists() {
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   const dispatch = useDispatch(); //BEFORE: const [userMovieLists, setUserMovieLists] = useState=([])
   //RECEIVER
@@ -60,54 +61,58 @@ export default function MovieLists() {
     console.log("Deleting movie with ID:", movie_id);
   };
 
-  const handleUpdate = (movie_id) => {
+  const handleUpdate = async (movie_id) => {
+    setSelectedMovie(movie_id)
     setShowUpdateModal(true);
     console.log("Updating movie with ID:", movie_id);
   };
 
   return (
-    <Table striped bordered hover variant="dark">
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Poster</th>
-          <th>Film Title</th>
-          <th>Released</th>
-          <th>Review</th>
-          <th>Rating</th>
-          <th>Date</th>
-          <th>No Function</th>
-        </tr>
-      </thead>
-      <tbody>
-        {loading && (
-          <Spinner animation="border" className="ms-3 mt-3" variant="primary"></Spinner>
-        )}
-        {userMovieLists.length > 0 && userMovieLists.map((userInputMovieData, index) => (
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td><img src={userInputMovieData.movie_poster} /></td>
-            <td>{userInputMovieData.movie_name}</td>
-            <td>{userInputMovieData.movie_year}</td>
-            <td>{userInputMovieData.personal_review}</td>
-            <td>{renderStars(userInputMovieData.movie_rating)}</td>
-            <td>{formatDate(userInputMovieData.date_watched)}</td>
-            <td>
-              <Button
-                variant="danger"
-                onClick={() => handleDelete(userInputMovieData.movie_id)}
-              >
-                Delete
-              </Button>
-              <Button className="ms-3" variant="success" onClick={() => handleUpdate(userInputMovieData.movie_id)} >
-                Update
-              </Button>
-            </td>
+    <>
+
+      <Table striped bordered hover variant="dark">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Poster</th>
+            <th>Film Title</th>
+            <th>Released</th>
+            <th>Review</th>
+            <th>Rating</th>
+            <th>Date</th>
+            <th>No Function</th>
           </tr>
-        ))}
-      </tbody>
-      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} />
-    </Table>
+        </thead>
+        <tbody>
+          {loading && (
+            <Spinner animation="border" className="ms-3 mt-3" variant="primary"></Spinner>
+          )}
+          {userMovieLists.length > 0 && userMovieLists.map((userInputMovieData, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td><img src={userInputMovieData.movie_poster} /></td>
+              <td>{userInputMovieData.movie_name}</td>
+              <td>{userInputMovieData.movie_year}</td>
+              <td>{userInputMovieData.personal_review}</td>
+              <td>{renderStars(userInputMovieData.movie_rating)}</td>
+              <td>{formatDate(userInputMovieData.date_watched)}</td>
+              <td>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDelete(userInputMovieData.movie_id)}
+                >
+                  Delete
+                </Button>
+                <Button className="ms-3" variant="success" onClick={() => handleUpdate(userInputMovieData.movie_id)} >
+                  Update
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieData={selectedMovie} />
+    </>
 
   )
 }

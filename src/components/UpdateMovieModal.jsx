@@ -1,27 +1,35 @@
 //UpdateMovieModal.jsx
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Modal, Form, Button, Container, Row, Col } from "react-bootstrap";
-import { AuthContext } from "./AuthProvider";
 import { useDispatch } from "react-redux";
 import { updateMovie } from "../features/posts/moviesSlice";
 
-export default function UpdateMovieModal({ show, handleClose, favouriteMovieData }) {
+export default function UpdateMovieModal({ show, handleClose, movieData }) {
   const [userReview, setUserReview] = useState("")
   const [date, setDate] = useState("");
   const [movie_rating, setMovieRating] = useState(0); // State for movie rating
   const dispatch = useDispatch();
+  /*   console.log(`Receive movie_id succesfully to UpdateModal from MovieLists`, movie_id) */
 
   const handleRatingChange = (rating) => {
     setMovieRating(rating);
   };
 
-  const { currentUser } = useContext(AuthContext) //extract currentUser from AuthProvider using useContext
+  //extract currentUser from AuthProvider using useContext
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { Poster, Title, Year } = favouriteMovieData
-    dispatch(updateMovie({ userReview, date, movie_rating, Poster, Title, Year, currentUser }))
+
+    console.log("Update Movie Payload:", { userReview, date, movie_rating, movieData }); // Log the payload
+    dispatch(
+      updateMovie({
+        personal_review: userReview,
+        date_watched: date,
+        movie_rating: movie_rating,
+        movie_id: movieData,
+      })
+    );
     handleClose()
     setUserReview("") //when handlesubmit procs, userReview,date and movierating will reset to empty string
     setDate("")
@@ -34,24 +42,13 @@ export default function UpdateMovieModal({ show, handleClose, favouriteMovieData
         onHide={handleClose}
         animation={false}
         centered
+
       >
         <Container fluid>
           <Modal.Header closeButton></Modal.Header>
-          <h2 className="text-center">Whats your opinion?</h2>
+          <h2 className="text-center">Update your opinion</h2>
           <Modal.Body>
             <Row>
-              <Col md={6}>
-                {favouriteMovieData && (
-                  <div>
-                    <img
-                      src={favouriteMovieData.Poster}
-                      alt={favouriteMovieData.Title}
-                      style={{ maxWidth: "100%", maxHeight: "200px" }}
-                    />
-                    <h2>{favouriteMovieData.Title}</h2>
-                  </div>
-                )}
-              </Col>
               <Col md={6}>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="review">

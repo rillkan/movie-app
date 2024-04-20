@@ -1,4 +1,4 @@
-/* import { createContext, useState } from "react";
+/*  import { createContext, useState } from "react";
 
 export const FavouriteMovieDataContext = createContext();
 
@@ -13,4 +13,4 @@ export const FavouriteMovieData = ({ children }) => {
       {children}
     </FavouriteMovieData.Provider>
   )
-}  */
+}   */

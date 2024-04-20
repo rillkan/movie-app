@@ -5,7 +5,8 @@ import { AuthContext } from "../components/AuthProvider";
 import { useContext, useEffect } from "react";
 import { Navbar, Container, Button, Nav, NavDropdown, Form } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router-dom";
-import logo from "../images/film-logo.jpg";
+/* import logo from "../images/film-logo.jpg"; */
+import image1 from "../images/myfilmstack1.png"
 import { SearchContext } from "../components/SearchProvider"
 
 export default function Navigation() {
@@ -31,11 +32,10 @@ export default function Navigation() {
 
   return (
     <>
-      <Navbar bg="danger" variant="dark">
+      <Navbar variant="dark" style={{ background: "#333333" }}>
         <Container>
           <Navbar.Brand href="/home">
-            <img src={logo} alt="Logo" style={{ maxWidth: "100px", maxHeight: "50px" }} />
-            letterboxd at home
+            <img src={image1} alt="Logo" style={{ maxWidth: "100px", maxHeight: "50px" }} />
           </Navbar.Brand>
 
           <Nav className="me-auto">
@@ -56,7 +56,7 @@ export default function Navigation() {
 
           <div className="d-flex align-items-center"> {/* Added a div to properly align username and search */}
             <div className="me-3 text-light">Hello {username}</div> {/* Display username */}
-            <Button href="/profilepage">Profile Page</Button>
+            <Button className="me-3" variant="outline-success" href="/profilepage">Profile Page</Button>
 
             <Form className="d-flex">
               <Form.Control

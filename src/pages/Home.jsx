@@ -6,14 +6,13 @@ import AddMovieModal from "../components/AddMovieModal";
 import { Link } from "react-router-dom";
 import Hero from "../components/Carousel";
 
-
 export default function Home() {
   const { searchValue } = useContext(SearchContext) // Get searchValue from context
   const [movies, setMovies] = useState([]);
   const [selectMovieID, setSelectMovieID] = useState(null)
 
   const requestMovie = async (searchQuery) => { //updates the movies array from [] to fetching movies from searchQuery
-    const url = `https://www.omdbapi.com/?s=${searchQuery}&apikey=eb03f9ad`;
+    const url = `https://www.omdbapi.com/?s=${searchQuery}&apikey=eb03f9ad&type=movie`;
 
     const response = await fetch(url);
     const responseJson = await response.json();
@@ -44,8 +43,6 @@ export default function Home() {
     console.log(`Movie ID: ${movieId}`)
     setSelectMovieID(movieId)
   }
-
-  console.log(movies)
 
   return (
     <div className="bg-dark text-white" style={{ height: '2000px' }}>
