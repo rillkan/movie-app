@@ -10,15 +10,12 @@ import MovieDetails from "./pages/MovieDetails"
 import { Provider } from "react-redux";
 import store from "./store"
 import ProfilePage from "./pages/ProfilePage"
-/* import { FavouriteMovieData } from "./components/FavouriteMovieData"; */
-
 
 export default function App() {
 
   return (
     <Provider store={store}>
       <AuthProvider>
-        {/*         <FavouriteMovieData> */}
         <SearchProvider>
           <BrowserRouter>
             <Routes>
@@ -33,8 +30,6 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </SearchProvider>
-        {/*         </FavouriteMovieData> */}
-
       </AuthProvider>
     </Provider>
 

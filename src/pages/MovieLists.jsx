@@ -19,6 +19,7 @@ export default function MovieLists() {
   const loading = useSelector((state) => state.movies.loading)
   const { currentUser } = useContext(AuthContext);
   const [showUpdateModal, setShowUpdateModal] = useState(false)
+  console.log(`Array inside of movies, defined by object each movie: `, userMovieLists)
 
   const userId = currentUser.uid
   useEffect(() => { //useEffect triggers automatically when component is mounted

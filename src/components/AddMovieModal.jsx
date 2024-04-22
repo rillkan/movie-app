@@ -11,6 +11,7 @@ export default function AddMovieModal({ show, handleClose, favouriteMovieData })
   const [date, setDate] = useState("");
   const [movie_rating, setMovieRating] = useState(0); // State for movie rating
   const dispatch = useDispatch();
+  console.log("favouriteMovieData:", favouriteMovieData);
 
   const handleRatingChange = (rating) => {
     setMovieRating(rating);
