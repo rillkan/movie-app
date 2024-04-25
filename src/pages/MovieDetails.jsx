@@ -1,14 +1,16 @@
 //MovieDetails.jsx
 
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 export default function MovieDetails() {
   const { id } = useParams(); //receives the imdbID from URL and call it 'id '. Refer from Home.jsx. It extracts the imdbID from movie.imdbID
   const [movieData, setMovieData] = useState(null);
+  const [movieReviewsandNames, setMovieReviewsandNames] = useState(null)
 
   useEffect(() => {
+    console.log("Received imdb_id:", id);
     const fetchMovieData = async () => {
       try {
         const response = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=eb03f9ad&plot=full`); //uses the id from URL to fetch
@@ -22,14 +24,30 @@ export default function MovieDetails() {
     fetchMovieData();
   }, [id]);
 
+  useEffect(() => {
+    console.log("Received imdb_id for movieReviews:", id);
+    console.log('Movie Review and Name', movieReviewsandNames)
+    const fetchMovieReviewsAndName = async () => {
+      try {
+        const response = await fetch(`https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev/moviereviews/${id}`); //uses the id from URL to fetch
+        const data = await response.json();
+        setMovieReviewsandNames(data);
+      } catch (error) {
+        console.error('Error fetching movie data:', error);
+      }
+    };
+
+    fetchMovieReviewsAndName();
+  }, [id]);
+
   if (!movieData) {
     return <div>Loading...</div>;
   }
 
   return (
 
-    <div className="fluid bg-dark text-white">
-      <Container className="m-5">
+    <div className="fluid bg-dark text-white" style={{ height: '3000px' }}>
+      <Container>
         <Row>
           <Col md={6}>
             <div>
@@ -38,7 +56,7 @@ export default function MovieDetails() {
             </div>
           </Col>
           <Col md={6}>
-            <div >
+            <div>
               <p>Year: {movieData.Year}</p>
               <p>Genre: {movieData.Genre}</p>
               <p>Director: {movieData.Director}</p>
@@ -51,12 +69,22 @@ export default function MovieDetails() {
                   <p key={index}>{rating.Source}: {rating.Value}</p>
                 ))}
               </div>
+              <div>
+                <h2>Reviews:</h2>
+                {movieReviewsandNames && movieReviewsandNames.length > 0 && movieReviewsandNames.map((review, index) => (
+                  <Card key={index} style={{ marginBottom: '10px' }}>
+                    <Card.Body>
+                      <Card.Title>Review by <strong>{review.actual_name}</strong></Card.Title>
+                      <Card.Text>{review.personal_review}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                ))}
+              </div>
             </div>
           </Col>
         </Row>
       </Container>
     </div>
-
 
   );
 }

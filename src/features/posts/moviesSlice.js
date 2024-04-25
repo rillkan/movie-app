@@ -18,7 +18,7 @@ export const fetchMoviesByUser = createAsyncThunk( //async operation are tasks t
 
 export const saveMovie = createAsyncThunk(
   "movies/saveMovie",
-  async ({ userReview, date, movie_rating, Poster, Title, Year, currentUser }) => {
+  async ({ userReview, date, movie_rating, Poster, Title, Year, currentUser, imdbID }) => {
     return new Promise((resolve, reject) => {
       auth.onAuthStateChanged(async user => {
         if (user) {
@@ -29,7 +29,8 @@ export const saveMovie = createAsyncThunk(
             movie_rating: movie_rating,
             movie_poster: Poster,
             movie_name: Title,
-            movie_year: Year
+            movie_year: Year,
+            imdb_id: imdbID
           };
           try {
             const response = await axios.post(`${BASE_URL}/addallmoviedetails`, data);
@@ -86,6 +87,8 @@ export const updateMovie = createAsyncThunk(
       movie_rating: movie_rating,
     };
     const response = await axios.put(`${BASE_URL}/movies/${movie_id}`, data);
+    console.log(`Response from update: `, response)
+    console.log("Movie updated successfully:", movie_id);
     return response.data;
   }
 );
@@ -106,17 +109,17 @@ const moviesSlice = createSlice({
     })
     builder.addCase(deleteMovie.fulfilled, (state, action) => {
       // Logic to remove the deleted movie from state
-      console.log(`This is action.payload: `, action.payload)
+      console.log(`This is action.payload from delete: `, action.payload)
       state.movies2 = state.movies2.filter(banana => banana.movie_id !== action.payload.idReplit);
     });
     builder.addCase(updateMovie.fulfilled, (state, action) => {
-      const updatedMovie = action.payload
-      console.log(`This is updatedMovie:`, updatedMovie)
-      const index = state.movies2.findIndex((movie) => movie.movie_id === updatedMovie.movie_id)
+      const updatedMovie = action.payload;
+      console.log('This is updatedMovie:', updateMovie)
+      const index = state.movies2.findIndex((movie) => movie.movie_id === updatedMovie.movie_id);
       if (index !== -1) {
         state.movies2[index] = updatedMovie
       }
-    })
+    });
   }
 })
 

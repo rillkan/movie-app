@@ -1,12 +1,45 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { storage } from "../firebase"
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { ActualNameContext } from "../components/ActualNameProvider";
+import { AuthContext } from "../components/AuthProvider";
 
 export default function ProfilePage() {
+  const { actualName } = useContext(ActualNameContext)
+  const { username } = useContext(AuthContext);
 
   //create 2 more useState variable to receive username and image
   const [isEditMode, setIsEditMode] = useState(false);
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState(null)
+  /*   const [username, setUsername] = useState(""); */
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleNameChange = () => { };
 
   function handleEditProfile() {
+
+    const imageRef = ref(storage, "profileImages/" + image.name);
+    uploadBytes(imageRef, image)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((downloadURL) => {
+            setUrl(downloadURL);
+            console.log("Image URL set:", downloadURL);
+          })
+          .catch((error) => {
+            console.error("Error getting the image URL:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error uploading the image:", error);
+      })
 
     //write your function to handle submit, you need to create a new asyncThunk to send data to neon database
     //you can follow the youtube video you showed me too, means make this as async function
@@ -24,8 +57,7 @@ export default function ProfilePage() {
           <Row>
             <Col sm={3}>
               <Image
-                //src i hardcode, should retrieve the firbase storage URL from your database
-                src="https://firebasestorage.googleapis.com/v0/b/tadel-app.appspot.com/o/tasks%2Fdepositphotos_137014128-stock-illustration-user-profile-icon.jpg?alt=media&token=f0c021cc-33b8-437f-a624-49eb486788b8"
+                src={url ? url : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"}
                 className="ms-5 my-5"
                 style={{
                   width: "200px",
@@ -35,8 +67,7 @@ export default function ProfilePage() {
                 roundedCircle />
             </Col>
             <Col sm={9} className="mt-5 pt-3">
-              {/* Should change <h3> tag below to retrieve user email from database */}
-              <h3>User Email Address</h3>
+              <h3>{username}</h3>
               <br />
               {isEditMode ? (
                 <>
@@ -48,18 +79,18 @@ export default function ProfilePage() {
                           <Form.Control
                             type="text"
                             style={{ width: "300px" }}
-                          //add your onChange
+                            onChange={handleNameChange}
                           />
                         </Form.Group>
                       </Col>
                       <Col sm={8}>
                         <Form.Group>
-                          <Form.Label>New Profile Picture</Form.Label>
+                          <Form.Label>New Profile Picture (200x200)</Form.Label>
                           <Form.Control
                             style={{ width: "300px" }}
                             type="file"
                             accept="image/*"
-                          //add your onChange
+                            onChange={handleImageChange}
                           />
                         </Form.Group>
                       </Col>
@@ -75,7 +106,7 @@ export default function ProfilePage() {
               ) : (
                 <>
                   {/* should change <h4> tag below to retrieve user actual_username from database */}
-                  <h4 className="mb-5">actual_username</h4>
+                  <h4 className="mb-5">{actualName}</h4>
                   <Button variant="outline-secondary" onClick={() => setIsEditMode(!isEditMode)}>Edit Profile</Button>
                 </>
               )}

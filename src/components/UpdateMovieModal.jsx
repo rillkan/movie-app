@@ -5,7 +5,7 @@ import { Modal, Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { updateMovie } from "../features/posts/moviesSlice";
 
-export default function UpdateMovieModal({ show, handleClose, movieData }) {
+export default function UpdateMovieModal({ show, handleClose, movieId }) {
   const [userReview, setUserReview] = useState("")
   const [date, setDate] = useState("");
   const [movie_rating, setMovieRating] = useState(0); // State for movie rating
@@ -21,13 +21,13 @@ export default function UpdateMovieModal({ show, handleClose, movieData }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    console.log("Update Movie Payload:", { userReview, date, movie_rating, movieData }); // Log the payload
+    console.log("Update Movie Payload:", { userReview, date, movie_rating, movieId }); // Log the payload
     dispatch(
       updateMovie({
         personal_review: userReview,
         date_watched: date,
         movie_rating: movie_rating,
-        movie_id: movieData,
+        movie_id: movieId,
       })
     );
     handleClose()

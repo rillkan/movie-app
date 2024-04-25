@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {//Export out a function to App.jsx t
   const [currentUser, setCurrentUser] = useState(null); //currentUser helps keep track of the currently logged-in user, its set to null initally cuz no user is logged in yet
   const [loading, setLoading] = useState(true);//loading indicate whether the application is still loading or not
   console.log(`This are children from AuthProvider:`, children) //children are components wrapped in AuthProvider, at App.jsx
-  console.log(`currentUser:`, currentUser)
+  console.log(`This is currentUser from Firebase Auth:`, currentUser)
   const [username, setUsername] = useState(""); // New state to hold username
 
 

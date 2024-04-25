@@ -21,12 +21,16 @@ export default function MovieLists() {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
   console.log(`Array inside of movies, defined by object each movie: `, userMovieLists)
 
-  const userId = currentUser.uid
+  const userId = currentUser?.uid
   useEffect(() => { //useEffect triggers automatically when component is mounted
     // Firebase provides a method to observe authentication state changes
     dispatch(fetchMoviesByUser(userId)) //SENDER);
     // Clean up the subscription when the component unmounts
   }, [dispatch, userId]); //only triggers when it dispatches
+
+  useEffect(() => {
+    console.log("User Movie Lists:", userMovieLists); // Log the userMovieLists array
+  }, [userMovieLists]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -81,6 +85,7 @@ export default function MovieLists() {
             <th>Review</th>
             <th>Rating</th>
             <th>Date</th>
+            <th>imdb</th>
             <th>No Function</th>
           </tr>
         </thead>
@@ -97,6 +102,7 @@ export default function MovieLists() {
               <td>{userInputMovieData.personal_review}</td>
               <td>{renderStars(userInputMovieData.movie_rating)}</td>
               <td>{formatDate(userInputMovieData.date_watched)}</td>
+              <td>{userInputMovieData.imdb_id}</td>
               <td>
                 <Button
                   variant="danger"
@@ -112,7 +118,7 @@ export default function MovieLists() {
           ))}
         </tbody>
       </Table>
-      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieData={selectedMovie} />
+      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieId={selectedMovie} />
     </>
 
   )

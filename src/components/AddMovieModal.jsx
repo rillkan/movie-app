@@ -21,8 +21,8 @@ export default function AddMovieModal({ show, handleClose, favouriteMovieData })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { Poster, Title, Year } = favouriteMovieData
-    dispatch(saveMovie({ userReview, date, movie_rating, Poster, Title, Year, currentUser }))
+    const { Poster, Title, Year, imdbID } = favouriteMovieData
+    dispatch(saveMovie({ userReview, date, movie_rating, Poster, Title, Year, imdbID, currentUser }))
     handleClose()
     setUserReview("") //when handlesubmit procs, userReview,date and movierating will reset to empty string
     setDate("")

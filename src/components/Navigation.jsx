@@ -6,18 +6,48 @@ import { AuthContext } from "../components/AuthProvider";
 import { useContext, useEffect, useState } from "react";
 import { Navbar, Container, Button, Nav, NavDropdown, Form } from "react-bootstrap";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-/* import logo from "../images/film-logo.jpg"; */
 import image1 from "../images/myfilmstack1.png"
 import { SearchContext } from "../components/SearchProvider"
 import Select from 'react-select';
+import { ActualNameContext } from "./ActualNameProvider";
+import AddMovieModal from "./AddMovieModal";
+
 
 export default function Navigation() {
   const auth = getAuth();
   const navigate = useNavigate();
-  const { currentUser, username } = useContext(AuthContext); // Get username from context
+  const { currentUser } = useContext(AuthContext); // Get username from context
   const { searchValue, setSearchValue } = useContext(SearchContext)
+  const { actualName } = useContext(ActualNameContext)
+  const [selectMovieID, setSelectMovieID] = useState(null)
+  const [favouriteMovieData, setFavouriteMovieData] = useState(null);
+
+  console.log('Actual NAMEEEEEE:', actualName)
+
+  const handleClose = (movieData) => {
+    setSelectMovieID(null); // Reset the movieID back to null when modal is closed
+    if (movieData) {
+      setOptions(prevMovies => [...prevMovies, movieData]); // Add the new movie data to the movies array
+    }
+  }
+
+  /*   const handleClose = () => setSelectMovieID(null) //Reset the movieID back to null when modal is close */
+
+  const handleShow = (movieId, poster, title) => {
+    console.log(`Movie ID from Select: ${movieId}`)
+    console.log(`Poster: ${poster}`);
+    console.log(`Title: ${title}`);
+    const favouriteMovieData = {
+      imdbID: movieId,
+      Poster: poster,
+      Title: title
+    };
+    setFavouriteMovieData(favouriteMovieData);
+    setSelectMovieID(movieId)
+  }
 
   console.log("searchValue from context:", searchValue);
+  /*   console.log('this is uid:', currentUser.uid) */
 
   useEffect(() => {
     if (!currentUser) {
@@ -68,7 +98,7 @@ export default function Navigation() {
           poster: movie.Poster
         }));
         setOptions(movies);
-        console.log('Fetched Options:', movies)
+        console.log('Fetched Options:', movies) //all searched movies, exp: type harry, display all harry movies and passing the imdbID,title and poster
       }
     } catch (error) {
       console.error('Error fetching movies:', error);
@@ -89,7 +119,7 @@ export default function Navigation() {
       <Link to={`/moviedetails/${data.value}`} style={{ textDecoration: 'none' }}>
         {children}
       </Link>
-      <Button>Add</Button>
+      <Button onClick={() => handleShow(data.value, data.poster, data.label)}>Add</Button>
     </div>
   );
   return (
@@ -101,6 +131,7 @@ export default function Navigation() {
           </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/movielists">myMovies</Nav.Link>
+            <Nav.Link href="/diary">Diary</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action4">
@@ -115,7 +146,7 @@ export default function Navigation() {
             </NavDropdown>
           </Nav>
           <div className="d-flex align-items-center"> {/* Added a div to properly align username and search */}
-            <div className="me-3 text-light">Hello {username}</div> {/* Display username */}
+            <div className="me-3 text-light">Hello {typeof actualName === 'string' && actualName.trim() ? actualName : 'User'}</div>
             <Button className="me-3" variant="outline-success" href="/profilepage">Profile Page</Button>
             <Form className="d-flex">
               <Form.Control
@@ -149,6 +180,7 @@ export default function Navigation() {
           </div>
         </Container>
       </Navbar>
+      <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} favouriteMovieData={favouriteMovieData} /> {/* Modal only shows if movieID is not null */}
       <Outlet />
     </>
   );
