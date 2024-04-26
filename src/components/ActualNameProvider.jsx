@@ -7,7 +7,6 @@ export const ActualNameContext = createContext();
 
 export const ActualNameProvider = ({ children }) => {
   const [actualName, setActualName] = useState([""]); // State for actual name
-  console.log("HELLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
   const { currentUser } = useContext(AuthContext);
 
 
@@ -17,7 +16,7 @@ export const ActualNameProvider = ({ children }) => {
         const response = await fetch(`https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev/extractname/${currentUser.uid}`); // Assuming the API is served from the same host
         if (response.ok) {
           const data = await response.json();
-          console.log("Actual name response:", data);
+          /*           console.log("Actual name response:", data); */
           if (data.length > 0) {
             setActualName(data[0].actual_name);
           } else {

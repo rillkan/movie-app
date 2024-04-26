@@ -10,6 +10,7 @@ import { deleteMovie } from "../features/posts/moviesSlice";
 import { AuthContext } from "../components/AuthProvider";
 import UpdateMovieModal from "../components/UpdateMovieModal"
 
+
 export default function MovieLists() {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
@@ -19,7 +20,7 @@ export default function MovieLists() {
   const loading = useSelector((state) => state.movies.loading)
   const { currentUser } = useContext(AuthContext);
   const [showUpdateModal, setShowUpdateModal] = useState(false)
-  console.log(`Array inside of movies, defined by object each movie: `, userMovieLists)
+  console.log(`Array inside of movies, defined by object each movie. Triggered when MovieLists() is mounted: `, userMovieLists)
 
   const userId = currentUser?.uid
   useEffect(() => { //useEffect triggers automatically when component is mounted
@@ -81,12 +82,11 @@ export default function MovieLists() {
             <th>No</th>
             <th>Poster</th>
             <th>Film Title</th>
-            <th>Released</th>
             <th>Review</th>
             <th>Rating</th>
-            <th>Date</th>
-            <th>imdb</th>
-            <th>No Function</th>
+            <th>Date Watched</th>
+            {/*             <th>imdb</th> */}
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -98,11 +98,10 @@ export default function MovieLists() {
               <td>{index + 1}</td>
               <td><img src={userInputMovieData.movie_poster} /></td>
               <td>{userInputMovieData.movie_name}</td>
-              <td>{userInputMovieData.movie_year}</td>
               <td>{userInputMovieData.personal_review}</td>
               <td>{renderStars(userInputMovieData.movie_rating)}</td>
               <td>{formatDate(userInputMovieData.date_watched)}</td>
-              <td>{userInputMovieData.imdb_id}</td>
+              {/*               <td>{userInputMovieData.imdb_id}</td> */}
               <td>
                 <Button
                   variant="danger"
@@ -119,6 +118,7 @@ export default function MovieLists() {
         </tbody>
       </Table>
       <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieId={selectedMovie} />
+
     </>
 
   )

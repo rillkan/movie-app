@@ -6,6 +6,7 @@ import AddMovieModal from "../components/AddMovieModal";
 import { Link } from "react-router-dom";
 import Hero from "../components/Carousel";
 
+
 export default function Home() {
   const { searchValue } = useContext(SearchContext) // Get searchValue from context
   const [movies, setMovies] = useState([]);
@@ -133,17 +134,8 @@ export default function Home() {
 
   useEffect(() => {
     displayRomanceMovie();
-  }, []);
-
-  useEffect(() => {
     displayActionMovie();
-  }, []);
-
-  useEffect(() => {
     displayBiographyMovie();
-  }, []);
-
-  useEffect(() => {
     displayTrendingMovie();
   }, []);
 
@@ -169,9 +161,9 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-dark text-white" style={{ height: '3000px' }}>
-      <h1>All Moviess</h1>
-      <main >
+    <div style={{ height: '2200px', background: 'linear-gradient(#051923, #003554 )', color: '#b9d6f2' }}>
+      <h1>Movies Section</h1>
+      <main className="m-5">
         <Hero onDataLoaded={handleDataLoaded} />
       </main>
       <div className="container-fluid">
@@ -180,7 +172,7 @@ export default function Home() {
           {displayTrendingMovies.map((trendingMovie) => (
             <div key={trendingMovie.imdbID} className="col-md-2 mb-4">
               <Link to={`/moviedetails/${trendingMovie.imdbID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img src={trendingMovie.Poster} alt={trendingMovie.Title} style={{ width: '80%' }} />
+                <img src={trendingMovie.Poster} alt={trendingMovie.Title} style={{ width: '80%', borderRadius: '20px' }} />
                 <p>{trendingMovie.Title} ({trendingMovie.Year})</p>
               </Link>
             </div>
@@ -189,7 +181,7 @@ export default function Home() {
           {displayBiographyMovies.map((biographyMovie) => (
             <div key={biographyMovie.imdbID} className="col-md-2 mb-4">
               <Link to={`/moviedetails/${biographyMovie.imdbID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img src={biographyMovie.Poster} alt={biographyMovie.Title} style={{ width: '80%' }} />
+                <img src={biographyMovie.Poster} alt={biographyMovie.Title} style={{ width: '80%', borderRadius: '20px' }} />
                 <p>{biographyMovie.Title} ({biographyMovie.Year})</p>
               </Link>
             </div>
@@ -198,7 +190,7 @@ export default function Home() {
           {displayRomanceMovies.map((romanceMovie) => (
             <div key={romanceMovie.imdbID} className="col-md-2 mb-4">
               <Link to={`/moviedetails/${romanceMovie.imdbID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img src={romanceMovie.Poster} alt={romanceMovie.Title} style={{ width: '80%' }} />
+                <img src={romanceMovie.Poster} alt={romanceMovie.Title} style={{ width: '80%', borderRadius: '20px' }} />
                 <p>{romanceMovie.Title} ({romanceMovie.Year})</p>
               </Link>
             </div>
@@ -207,7 +199,7 @@ export default function Home() {
           {displayActionMovies.map((actionMovie) => (
             <div key={actionMovie.imdbID} className="col-md-2 mb-4">
               <Link to={`/moviedetails/${actionMovie.imdbID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img src={actionMovie.Poster} alt={actionMovie.Title} style={{ width: '80%' }} />
+                <img src={actionMovie.Poster} alt={actionMovie.Title} style={{ width: '80%', borderRadius: '20px' }} />
                 <p>{actionMovie.Title} ({actionMovie.Year})</p>
               </Link>
             </div>
@@ -224,6 +216,7 @@ export default function Home() {
             </div>
           ))}
           <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} favouriteMovieData={movies.find(movie => movie.imdbID === selectMovieID)} /> {/* Modal only shows if movieID is not null */}
+
         </div>
       </div>
     </div>

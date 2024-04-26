@@ -46,7 +46,7 @@ export default function MovieDetails() {
 
   return (
 
-    <div className="fluid bg-dark text-white" style={{ height: '3000px' }}>
+    <div className="fluid text-white" style={{ height: '3000px', background: 'linear-gradient(#051923, #003554 )' }}>
       <Container>
         <Row>
           <Col md={6}>
@@ -84,6 +84,7 @@ export default function MovieDetails() {
           </Col>
         </Row>
       </Container>
+
     </div>
 
   );

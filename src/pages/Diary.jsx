@@ -7,6 +7,7 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
 
+
 export default function DisplayMyMovies() {
   const dispatch = useDispatch();
   const movies = useSelector(state => state.movies.movies2); // Assuming your Redux store structure is { movies: { movies2: [], loading: true } }
@@ -59,7 +60,9 @@ export default function DisplayMyMovies() {
           ))}
         </div>
       </div>
+
     </div>
+
 
   );
 }

@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import { storage } from "../firebase"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { ActualNameContext } from "../components/ActualNameProvider";
 import { AuthContext } from "../components/AuthProvider";
+
 
 export default function ProfilePage() {
   const { actualName } = useContext(ActualNameContext)
@@ -13,7 +14,7 @@ export default function ProfilePage() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null)
-  /*   const [username, setUsername] = useState(""); */
+
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
@@ -21,7 +22,6 @@ export default function ProfilePage() {
     }
   };
 
-  const handleNameChange = () => { };
 
   function handleEditProfile() {
 
@@ -51,10 +51,10 @@ export default function ProfilePage() {
 
   return (
     <>
-      <Container className="mt-5">
-        <h2 className="mt-5 mb-3">User Profile</h2>
+      <div style={{ height: '2200px', background: 'linear-gradient(#051923, #003554 )' }}>
+        <h2 className="mt-5 mb-3 mx-4  text-light ">User Profile</h2>
         <div style={{ border: "1px solid black" }}>
-          <Row>
+          <Row className="mx-4" style={{ background: '#adb5bd', borderRadius: '20px' }}>
             <Col sm={3}>
               <Image
                 src={url ? url : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"}
@@ -73,16 +73,6 @@ export default function ProfilePage() {
                 <>
                   <Form onSubmit={handleEditProfile}>
                     <Row className="mb-3">
-                      <Col sm={4}>
-                        <Form.Group>
-                          <Form.Label>New Username</Form.Label>
-                          <Form.Control
-                            type="text"
-                            style={{ width: "300px" }}
-                            onChange={handleNameChange}
-                          />
-                        </Form.Group>
-                      </Col>
                       <Col sm={8}>
                         <Form.Group>
                           <Form.Label>New Profile Picture (200x200)</Form.Label>
@@ -114,7 +104,8 @@ export default function ProfilePage() {
             </Col>
           </Row>
         </div>
-      </Container>
+      </div>
+
     </>
   )
 }

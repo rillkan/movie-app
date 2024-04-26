@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Image, Carousel } from "react-bootstrap";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Hero = ({ onDataLoaded }) => {
   const [heroData, setHeroData] = useState([]);
@@ -73,22 +74,24 @@ const Hero = ({ onDataLoaded }) => {
   console.log("Carousel data:", heroData);
 
   return (
-    <section className="w-50 m-auto ">
+    <section className="w-50 m-auto">
       <Carousel>
         {heroData.map(hero => (
           <Carousel.Item key={hero.id}>
-            <div className="d-flex justify-content-center">
-              <Image className="carousel-image" fluid src={hero.image} alt={hero.title} />
-              <div className="carousel-text mx-3 mt-5">
-                <h3>{hero.title}</h3>
-                <p>{hero.description}</p>
-                <p>{hero.ratings}</p>
+            <Link to={`/moviedetails/${hero.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div className="d-flex align-items-center">
+                <Image fluid src={hero.image} alt={hero.title} />
+                <div className=" mx-3">
+                  <h3>{hero.title}</h3>
+                  <p>{hero.description}</p>
+                </div>
               </div>
-            </div>
+            </Link>
           </Carousel.Item>
         ))}
       </Carousel>
     </section>
+
   );
 };
 

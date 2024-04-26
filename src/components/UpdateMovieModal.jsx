@@ -21,7 +21,7 @@ export default function UpdateMovieModal({ show, handleClose, movieId }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    console.log("Update Movie Payload:", { userReview, date, movie_rating, movieId }); // Log the payload
+    console.log("Update Movie Payload from Modal:", { userReview, date, movie_rating, movieId }); // Log the payload
     dispatch(
       updateMovie({
         personal_review: userReview,

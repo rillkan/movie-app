@@ -12,6 +12,7 @@ import store from "./store"
 import ProfilePage from "./pages/ProfilePage"
 import { ActualNameProvider } from "./components/ActualNameProvider";
 import Diary from "./pages/Diary"
+import SearchMovies from "./pages/SearchMovies";
 
 export default function App() {
 
@@ -28,6 +29,7 @@ export default function App() {
                   <Route path="/home" element={<Home />} />
                   <Route path="/moviedetails/:id" element={<MovieDetails />} />
                   <Route path="/diary" element={<Diary />} />
+                  <Route path="/searchmovies" element={<SearchMovies />} />
                 </Route>
                 <Route path="/login" element={<AuthHome />} />
                 <Route path="*" element={<AuthHome />} />

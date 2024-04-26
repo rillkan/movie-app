@@ -1,3 +1,5 @@
+//store.js
+
 import { configureStore } from "@reduxjs/toolkit";
 import moviesReducer from "./features/posts/moviesSlice"
 

@@ -4,10 +4,10 @@
 import { getAuth } from "firebase/auth";
 import { AuthContext } from "../components/AuthProvider";
 import { useContext, useEffect, useState } from "react";
-import { Navbar, Container, Button, Nav, NavDropdown, Form } from "react-bootstrap";
+import { Navbar, Container, Button, Nav } from "react-bootstrap";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import image1 from "../images/myfilmstack1.png"
-import { SearchContext } from "../components/SearchProvider"
+import image1 from "../images/myfilmstack-high-resolution-logo-transparent.png"
+
 import Select from 'react-select';
 import { ActualNameContext } from "./ActualNameProvider";
 import AddMovieModal from "./AddMovieModal";
@@ -17,12 +17,12 @@ export default function Navigation() {
   const auth = getAuth();
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext); // Get username from context
-  const { searchValue, setSearchValue } = useContext(SearchContext)
+
   const { actualName } = useContext(ActualNameContext)
   const [selectMovieID, setSelectMovieID] = useState(null)
   const [favouriteMovieData, setFavouriteMovieData] = useState(null);
 
-  console.log('Actual NAMEEEEEE:', actualName)
+  /*   console.log('Actual NAMEEEEEE:', actualName) */
 
   const handleClose = (movieData) => {
     setSelectMovieID(null); // Reset the movieID back to null when modal is closed
@@ -33,20 +33,22 @@ export default function Navigation() {
 
   /*   const handleClose = () => setSelectMovieID(null) //Reset the movieID back to null when modal is close */
 
-  const handleShow = (movieId, poster, title) => {
+  const handleShow = (movieId, poster, title, release) => {
     console.log(`Movie ID from Select: ${movieId}`)
     console.log(`Poster: ${poster}`);
     console.log(`Title: ${title}`);
     const favouriteMovieData = {
       imdbID: movieId,
       Poster: poster,
-      Title: title
+      Title: title,
+      releaseYear: release
     };
     setFavouriteMovieData(favouriteMovieData);
     setSelectMovieID(movieId)
   }
+  console.log('this is from Select: ', favouriteMovieData)
 
-  console.log("searchValue from context:", searchValue);
+  /*   console.log("searchValue from context:", searchValue); */
   /*   console.log('this is uid:', currentUser.uid) */
 
   useEffect(() => {
@@ -59,9 +61,7 @@ export default function Navigation() {
     auth.signOut();
   };
 
-  const handleSearchChange = (event) => {
-    setSearchValue(event.target.value); // Update searchValue when input changes
-  };
+
   /*********************************************Select dropdown below**********************************************************/
 
   const [selectValue, setSelectValue] = useState('')
@@ -95,7 +95,8 @@ export default function Navigation() {
         const movies = data.Search.map(movie => ({
           value: movie.imdbID,
           label: movie.Title,
-          poster: movie.Poster
+          poster: movie.Poster,
+          releaseYear: movie.Year
         }));
         setOptions(movies);
         console.log('Fetched Options:', movies) //all searched movies, exp: type harry, display all harry movies and passing the imdbID,title and poster
@@ -119,67 +120,53 @@ export default function Navigation() {
       <Link to={`/moviedetails/${data.value}`} style={{ textDecoration: 'none' }}>
         {children}
       </Link>
-      <Button onClick={() => handleShow(data.value, data.poster, data.label)}>Add</Button>
+
+      <div className="ml-auto"> {/* Use Bootstrap class to push the button to the right */}
+        <Button onClick={() => handleShow(data.value, data.poster, data.label, data.releaseYear)}>Add</Button>
+      </div>
     </div>
   );
   return (
     <>
-      <Navbar variant="dark" style={{ background: "#333333" }}>
-        <Container>
-          <Navbar.Brand href="/home">
-            <img src={image1} alt="Logo" style={{ maxWidth: "100px", maxHeight: "50px" }} />
-          </Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/movielists">myMovies</Nav.Link>
-            <Nav.Link href="/diary">Diary</Nav.Link>
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                <Button variant="danger" onClick={handleLogout}>
-                  Logout
-                </Button>
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <div className="d-flex align-items-center"> {/* Added a div to properly align username and search */}
-            <div className="me-3 text-light">Hello {typeof actualName === 'string' && actualName.trim() ? actualName : 'User'}</div>
-            <Button className="me-3" variant="outline-success" href="/profilepage">Profile Page</Button>
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-                value={searchValue} // Bind searchValue to input value
-                onChange={handleSearchChange} //
+      <div>
+        <Navbar className="py-3" variant="dark" style={{ background: "#212529" }}>
+          <Container>
+            <Navbar.Brand href="/home">
+              <img src={image1} alt="Logo" style={{ maxWidth: "150px", maxHeight: "30px" }} />
+            </Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link href="/movielists">myMovies</Nav.Link>
+              <Nav.Link href="/diary">Diary</Nav.Link>
+              <Nav.Link href="/searchmovies">Search</Nav.Link>
+            </Nav>
+            <div className="d-flex align-items-center"> {/* Added a div to properly align username and search */}
+              <div className="me-3 text-light">Hello {typeof actualName === 'string' && actualName.trim() ? actualName : 'User'}</div>
+              <Button className="me-3" variant="outline-secondary" href="/profilepage">Profile Page</Button>
+            </div>
+            <div>
+              <Select
+                inputValue={selectValue}
+                onInputChange={handleInputChange}
+                onChange={handleDisplayChange}
+                options={options}
+                isClearable
+                placeholder="Search for a movie..."
+                components={{ Option: CustomOption }}
+                styles={{ // Define custom styles for the Select container
+                  container: (provided) => ({
+                    ...provided,
+                    width: "300px", // Set a fixed width for the container
+                  }),
+                }}
               />
-              <Button variant="outline-success">Search</Button>
-            </Form>
-          </div>
+            </div>
+          </Container>
+          <Button className="me-5" variant="outline-danger" onClick={handleLogout}>
+            Logout
+          </Button>
+        </Navbar>
+      </div>
 
-          <div>
-            <Select
-              inputValue={selectValue}
-              onInputChange={handleInputChange}
-              onChange={handleDisplayChange}
-              options={options}
-              isClearable
-              placeholder="Search for a movie..."
-              components={{ Option: CustomOption }}
-              styles={{ // Define custom styles for the Select container
-                container: (provided) => ({
-                  ...provided,
-                  width: "300px", // Set a fixed width for the container
-                }),
-              }}
-            />
-          </div>
-        </Container>
-      </Navbar>
       <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} favouriteMovieData={favouriteMovieData} /> {/* Modal only shows if movieID is not null */}
       <Outlet />
     </>

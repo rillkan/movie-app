@@ -11,7 +11,7 @@ export default function AddMovieModal({ show, handleClose, favouriteMovieData })
   const [date, setDate] = useState("");
   const [movie_rating, setMovieRating] = useState(0); // State for movie rating
   const dispatch = useDispatch();
-  console.log("favouriteMovieData:", favouriteMovieData);
+  /*   console.log("favouriteMovieData:", favouriteMovieData); */
 
   const handleRatingChange = (rating) => {
     setMovieRating(rating);
@@ -33,10 +33,10 @@ export default function AddMovieModal({ show, handleClose, favouriteMovieData })
       <Modal
         show={show}
         onHide={handleClose}
-        animation={false}
+        className="rounded"
         centered
       >
-        <Container fluid>
+        <Container fluid className="text-white bg-secondary rounded"  >
           <Modal.Header closeButton></Modal.Header>
           <h2 className="text-center">Whats your opinion?</h2>
           <Modal.Body>
@@ -47,7 +47,8 @@ export default function AddMovieModal({ show, handleClose, favouriteMovieData })
                     <img
                       src={favouriteMovieData.Poster}
                       alt={favouriteMovieData.Title}
-                      style={{ maxWidth: "100%", maxHeight: "200px" }}
+                      style={{ maxHeight: "300px", borderRadius: '10px' }}
+
                     />
                     <h2>{favouriteMovieData.Title}</h2>
                   </div>
@@ -58,9 +59,11 @@ export default function AddMovieModal({ show, handleClose, favouriteMovieData })
                   <Form.Group controlId="review">
                     <Form.Label>Review</Form.Label>
                     <Form.Control
-                      type="text"
+                      as="textarea" // Change the input type to textarea
+                      rows={4} // Set the number of rows to determine the height
                       value={userReview}
                       onChange={(e) => setUserReview(e.target.value)}
+                      className="form-control-lg" // Apply Bootstrap's form-control-lg class to increase the size
                     />
                   </Form.Group>
 

@@ -2,7 +2,7 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
-import { auth } from "../../firebase"
+
 
 const BASE_URL = "https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev"
 
@@ -16,7 +16,7 @@ export const fetchMoviesByUser = createAsyncThunk( //async operation are tasks t
   }
 )
 
-export const saveMovie = createAsyncThunk(
+/* export const saveMovie = createAsyncThunk(
   "movies/saveMovie",
   async ({ userReview, date, movie_rating, Poster, Title, Year, currentUser, imdbID }) => {
     return new Promise((resolve, reject) => {
@@ -42,31 +42,24 @@ export const saveMovie = createAsyncThunk(
       });
     });
   }
-);
+); */
 
-/* export const saveMovie = createAsyncThunk(
+export const saveMovie = createAsyncThunk(
   "movies/saveMovie",
-  async({userReview, date,movie_rating, Poster, Title, Year, currentUser }) =>{
-    return auth.onAuthStateChanged(user => { // auth.onAuthStateChanged gives access to user
-      if (user) { //if user is true...
-        // If user is authenticated, you can get their UID
-        const userId = user.uid; //change to userId, not necessarily but make sure to follow whatever u name it as
-      
-        const data = {
-          user_Review: userReview,
-          date_Watched: new Date(date).toISOString().split("T")[0],
-          user_uid: currentUser.uid,
-          movie_rating: movie_rating,
-          movie_poster: Poster,
-          movie_name: Title,
-          movie_year: Year
-        };
-        const response = await axios.post(`${BASE_URL}/addallmoviedetails`, data); //'await' expressions are only allowed at the top levels of modules
-        return response.data
-      }
-    });
+  async ({ userReview, date, movie_rating, Poster, Title, Year, currentUser }) => {
+    const data = {
+      user_Review: userReview,
+      date_Watched: new Date(date).toISOString().split("T")[0],
+      user_uid: currentUser.uid,
+      movie_rating: movie_rating,
+      movie_poster: Poster,
+      movie_name: Title,
+      movie_year: Year
+    };
+    const response = await axios.post(`${BASE_URL}/addallmoviedetails`, data);
+    return response.data;
   }
-) */
+);
 
 export const deleteMovie = createAsyncThunk(
   "movies/deleteMovie",
@@ -109,12 +102,15 @@ const moviesSlice = createSlice({
     })
     builder.addCase(deleteMovie.fulfilled, (state, action) => {
       // Logic to remove the deleted movie from state
+
       console.log(`This is action.payload from delete: `, action.payload)
-      state.movies2 = state.movies2.filter(banana => banana.movie_id !== action.payload.idReplit);
+      const deletedMovieId = action.payload.idReplit
+      state.movies2 = state.movies2.filter(banana => banana.movie_id !== deletedMovieId);
     });
     builder.addCase(updateMovie.fulfilled, (state, action) => {
-      const updatedMovie = action.payload;
-      console.log('This is updatedMovie:', updateMovie)
+      const updatedMovie = action.payload.newData;
+      console.log('This is updatedMovie Action PAYLOAD:', updatedMovie)
+      console.log(state.movies2)
       const index = state.movies2.findIndex((movie) => movie.movie_id === updatedMovie.movie_id);
       if (index !== -1) {
         state.movies2[index] = updatedMovie
