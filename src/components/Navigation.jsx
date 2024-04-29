@@ -37,6 +37,7 @@ export default function Navigation() {
     console.log(`Movie ID from Select: ${movieId}`)
     console.log(`Poster: ${poster}`);
     console.log(`Title: ${title}`);
+    console.log(`Release: ${release}`)
     const favouriteMovieData = {
       imdbID: movieId,
       Poster: poster,

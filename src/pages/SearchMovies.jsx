@@ -43,7 +43,7 @@ export default function SearchMovies() {
   };
 
   const handleShow = (movieId) => {
-    console.log(`Movie ID: ${movieId}`)
+    console.log(`Triggered when click "Favourite" button: ${movieId}`)
     setSelectMovieID(movieId)
   }
 

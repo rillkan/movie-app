@@ -46,7 +46,7 @@ export const fetchMoviesByUser = createAsyncThunk( //async operation are tasks t
 
 export const saveMovie = createAsyncThunk(
   "movies/saveMovie",
-  async ({ userReview, date, movie_rating, Poster, Title, Year, currentUser }) => {
+  async ({ userReview, date, movie_rating, Poster, Title, Year, currentUser, imdbID }) => {
     const data = {
       user_Review: userReview,
       date_Watched: new Date(date).toISOString().split("T")[0],
@@ -54,7 +54,8 @@ export const saveMovie = createAsyncThunk(
       movie_rating: movie_rating,
       movie_poster: Poster,
       movie_name: Title,
-      movie_year: Year
+      movie_year: Year,
+      imdb_id: imdbID
     };
     const response = await axios.post(`${BASE_URL}/addallmoviedetails`, data);
     return response.data;
@@ -93,7 +94,9 @@ const moviesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => { //When doing async thunk, u need extraReducers(builder)
     builder.addCase(fetchMoviesByUser.fulfilled, (state, action) => {//When data has been receive. It will be fulfilled and....
-      state.movies2 = action.payload; //1. append the new data to the empty array movies2: []
+      const payload1 = action.payload
+      console.log('Payload1: ', payload1)
+      state.movies2 = payload1 //1. append the new data to the empty array movies2: []
       console.log(action.payload)
       state.loading = false; //2. change the boolean value to from TRUE to FALSE
     })

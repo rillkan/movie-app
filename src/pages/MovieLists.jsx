@@ -30,7 +30,7 @@ export default function MovieLists() {
   }, [dispatch, userId]); //only triggers when it dispatches
 
   useEffect(() => {
-    console.log("User Movie Lists:", userMovieLists); // Log the userMovieLists array
+    console.log("Lists of all movies:", userMovieLists); // Log the userMovieLists array
   }, [userMovieLists]);
 
   const formatDate = (dateString) => {
@@ -85,7 +85,7 @@ export default function MovieLists() {
             <th>Review</th>
             <th>Rating</th>
             <th>Date Watched</th>
-            {/*             <th>imdb</th> */}
+            <th>imdb</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -101,7 +101,7 @@ export default function MovieLists() {
               <td>{userInputMovieData.personal_review}</td>
               <td>{renderStars(userInputMovieData.movie_rating)}</td>
               <td>{formatDate(userInputMovieData.date_watched)}</td>
-              {/*               <td>{userInputMovieData.imdb_id}</td> */}
+              <td>{userInputMovieData.imdb_id}</td>
               <td>
                 <Button
                   variant="danger"

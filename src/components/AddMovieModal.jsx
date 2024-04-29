@@ -11,7 +11,7 @@ export default function AddMovieModal({ show, handleClose, favouriteMovieData })
   const [date, setDate] = useState("");
   const [movie_rating, setMovieRating] = useState(0); // State for movie rating
   const dispatch = useDispatch();
-  /*   console.log("favouriteMovieData:", favouriteMovieData); */
+  console.log("Data gotten from OMDB", favouriteMovieData);
 
   const handleRatingChange = (rating) => {
     setMovieRating(rating);
@@ -48,9 +48,8 @@ export default function AddMovieModal({ show, handleClose, favouriteMovieData })
                       src={favouriteMovieData.Poster}
                       alt={favouriteMovieData.Title}
                       style={{ maxHeight: "300px", borderRadius: '10px' }}
-
                     />
-                    <h2>{favouriteMovieData.Title}</h2>
+                    <h2>{favouriteMovieData.Title}({favouriteMovieData.Year})</h2>
                   </div>
                 )}
               </Col>
