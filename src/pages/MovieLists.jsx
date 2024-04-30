@@ -9,6 +9,7 @@ import { fetchMoviesByUser } from "../features/posts/moviesSlice";
 import { deleteMovie } from "../features/posts/moviesSlice";
 import { AuthContext } from "../components/AuthProvider";
 import UpdateMovieModal from "../components/UpdateMovieModal"
+import { Link } from "react-router-dom";
 
 
 export default function MovieLists() {
@@ -94,9 +95,13 @@ export default function MovieLists() {
             <Spinner animation="border" className="ms-3 mt-3" variant="primary"></Spinner>
           )}
           {userMovieLists.length > 0 && userMovieLists.map((userInputMovieData, index) => (
-            <tr key={index}>
+            <tr key={userInputMovieData.imdb_id}>
               <td>{index + 1}</td>
-              <td><img src={userInputMovieData.movie_poster} /></td>
+              <td>
+                <Link to={`/moviedetails/${userInputMovieData.imdb_id}`}>
+                  <img src={userInputMovieData.movie_poster} />
+                </Link>
+              </td>
               <td>{userInputMovieData.movie_name}</td>
               <td>{userInputMovieData.personal_review}</td>
               <td>{renderStars(userInputMovieData.movie_rating)}</td>
@@ -117,8 +122,7 @@ export default function MovieLists() {
           ))}
         </tbody>
       </Table>
-      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieId={selectedMovie} />
-
+      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieId={selectedMovie} forUpdate={userMovieLists.find(movie => movie.imdbID === selectedMovie)} />
     </>
 
   )

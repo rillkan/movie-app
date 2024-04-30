@@ -5,12 +5,13 @@ import { Modal, Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { updateMovie } from "../features/posts/moviesSlice";
 
-export default function UpdateMovieModal({ show, handleClose, movieId }) {
+export default function UpdateMovieModal({ show, handleClose, movieId, forUpdate }) {
   const [userReview, setUserReview] = useState("")
   const [date, setDate] = useState("");
   const [movie_rating, setMovieRating] = useState(0); // State for movie rating
   const dispatch = useDispatch();
   /*   console.log(`Receive movie_id succesfully to UpdateModal from MovieLists`, movie_id) */
+  console.log("For update:", forUpdate);
 
   const handleRatingChange = (rating) => {
     setMovieRating(rating);
@@ -54,6 +55,8 @@ export default function UpdateMovieModal({ show, handleClose, movieId }) {
                   <Form.Group controlId="review">
                     <Form.Label>Review</Form.Label>
                     <Form.Control
+                      as="textarea" // Change the input type to textarea
+                      rows={4} // Set the number of rows to determine the height
                       type="text"
                       value={userReview}
                       onChange={(e) => setUserReview(e.target.value)}

@@ -30,11 +30,8 @@ export default function SearchMovies() {
     requestMovie(searchValue); // Use searchValue from context
   }, [searchValue]); // Re-run effect when searchValue changes
 
-  const handleClose = (movieData) => {
+  const handleClose = () => {
     setSelectMovieID(null); // Reset the movieID back to null when modal is closed
-    if (movieData) {
-      setMovies(prevMovies => [...prevMovies, movieData]); // Add the new movie data to the movies array
-    }
   }
 
   /*   const handleClose = () => setSelectMovieID(null) //Reset the movieID back to null when modal is close */

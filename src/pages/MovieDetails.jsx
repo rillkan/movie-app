@@ -24,7 +24,7 @@ export default function MovieDetails() {
     fetchMovieData();
   }, [id]);
 
-  useEffect(() => {
+  useEffect(() => { // Reviews are gotten from movielists, accurately from backend table. Returns all reviews of that specific movie
     console.log("Received imdb_id for movieReviews:", id);
     console.log('Movie Review and Name', movieReviewsandNames)
     const fetchMovieReviewsAndName = async () => {
