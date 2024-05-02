@@ -54,7 +54,7 @@ const Hero = ({ onDataLoaded }) => {
       console.log("API Responses:", responses); // Log the responses
       const data = responses.map((response) => ({
         id: response.data.imdbID,
-        image: response.data.Poster,
+        image: response.data.Poster.replace(/^http:\/\//i, 'https://'), // Replace HTTP with HTTPS
         title: response.data.Title,
         description: response.data.Plot,
       }));
