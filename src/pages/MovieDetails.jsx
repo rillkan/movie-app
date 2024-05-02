@@ -29,7 +29,7 @@ export default function MovieDetails() {
     console.log('Movie Review and Name', movieReviewsandNames)
     const fetchMovieReviewsAndName = async () => {
       try {
-        const response = await fetch(`https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev/moviereviews/${id}`); //uses the id from URL to fetch
+        const response = await fetch(`https://movie-app-backend-d3ba.onrender.com/moviereviews/${id}`); //uses the id from URL to fetch
         const data = await response.json();
         setMovieReviewsandNames(data);
       } catch (error) {
