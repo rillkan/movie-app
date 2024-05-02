@@ -24,8 +24,8 @@ export default function ProfilePage() {
 
 
   function handleEditProfile() {
-
     const imageRef = ref(storage, "profileImages/" + image.name);
+    console.log('imageref: ', image.name)
     uploadBytes(imageRef, image)
       .then(() => {
         getDownloadURL(imageRef)
