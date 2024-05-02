@@ -34,10 +34,10 @@ export default function Navigation() {
   /*   const handleClose = () => setSelectMovieID(null) //Reset the movieID back to null when modal is close */
 
   const handleShow = (movieId, poster, title, release) => {
-    console.log(`Movie ID from Select: ${movieId}`)
-    console.log(`Poster: ${poster}`);
-    console.log(`Title: ${title}`);
-    console.log(`Release: ${release}`)
+    /*     console.log(`Movie ID from Select: ${movieId}`)
+        console.log(`Poster: ${poster}`);
+        console.log(`Title: ${title}`);
+        console.log(`Release: ${release}`) */
     const favouriteMovieData = {
       imdbID: movieId,
       Poster: poster,

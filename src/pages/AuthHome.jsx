@@ -27,7 +27,6 @@ export default function AuthHome() {
 
   useEffect(() => { //if there is prescense of currentUser, sent user to home page. 
     if (currentUser) {
-      console.log(`TRIGGERING AGAIN EVEN WHEN LOGGED IN`)
       navigate("/home")
     }
   }, [currentUser, navigate])

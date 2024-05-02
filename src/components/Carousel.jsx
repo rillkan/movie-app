@@ -46,7 +46,7 @@ const Hero = ({ onDataLoaded }) => {
     const shuffledIds = imdbIds.sort(() => Math.random() - 0.5);
 
     const promises = shuffledIds.map(imdbId =>
-      axios.get(`http://www.omdbapi.com/?i=${imdbId}&apikey=eb03f9ad`)
+      axios.get(`https://www.omdbapi.com/?i=${imdbId}&apikey=eb03f9ad`)
     );
 
     try {
@@ -54,7 +54,7 @@ const Hero = ({ onDataLoaded }) => {
       console.log("API Responses:", responses); // Log the responses
       const data = responses.map((response) => ({
         id: response.data.imdbID,
-        image: response.data.Poster.replace(/^http:\/\//i, 'https://'), // Replace HTTP with HTTPS
+        image: response.data.Poster,
         title: response.data.Title,
         description: response.data.Plot,
       }));
