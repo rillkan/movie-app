@@ -46,14 +46,14 @@ export default function DisplayMyMovies() {
 
 
   return (
-    <div className="bg-dark text-white" style={{ height: '3000px' }}>
+    <div className="bg-dark text-white" style={{ height: '3000px', background: 'linear-gradient(#051923, #003554 )', color: '#b9d6f2' }}>
       <h1>My Movie Diary</h1>
       <div className="container-fluid">
         <div className='row'>
           {movies.length > 0 && movies.map(diaryMovie => (
-            <div className="col-md-2 mb-4" key={diaryMovie.movie_id}>
+            <div className="col-md-1 mb-2" key={diaryMovie.movie_id}>
               <Link to={`/moviedetails/${diaryMovie.imdb_id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img style={{ width: '80%' }} src={diaryMovie.movie_poster} alt="Movie Poster" />
+                <img style={{ width: '100%' }} src={diaryMovie.movie_poster} alt="Movie Poster" />
               </Link>
               <p>{renderStars(diaryMovie.movie_rating)}</p>
             </div>
