@@ -3,8 +3,10 @@ import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../components/SearchProvider" // Import the UseSearch context
 
 import AddMovieModal from "../components/AddMovieModal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Hero from "../components/Carousel";
+
+import { AuthContext } from "../components/AuthProvider";
 
 
 export default function Home() {
@@ -17,6 +19,10 @@ export default function Home() {
   const [selectMovieID, setSelectMovieID] = useState(null)
   const [heroData, setHeroData] = useState([]);
   console.log(heroData)
+
+  const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
+  if (!currentUser) navigate("/login");
 
   const handleDataLoaded = data => {
     setHeroData(data);

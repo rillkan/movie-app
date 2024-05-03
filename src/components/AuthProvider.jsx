@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {//Export out a function to App.jsx t
   }, []); //The empty dependency array ([]) passed to useEffect ensures that the effect runs only once after the initial render. ITS THE RULE/SYNTAX
 
   const value = { currentUser, username }; //extract the currentUser AND USERNAME out from user and call it value. We call it value as variable for ease of passing it as a prop through different file
-  console.log(value)
+
 
   return (
     <AuthContext.Provider value={value}> {/* passing value to everywhereeeee */}

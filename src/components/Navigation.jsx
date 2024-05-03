@@ -21,6 +21,7 @@ export default function Navigation() {
   const { actualName } = useContext(ActualNameContext)
   const [selectMovieID, setSelectMovieID] = useState(null)
   const [favouriteMovieData, setFavouriteMovieData] = useState(null);
+  const [isNavFixed, setIsNavFixed] = useState(false);
 
   /*   console.log('Actual NAMEEEEEE:', actualName) */
 
@@ -61,6 +62,16 @@ export default function Navigation() {
   const handleLogout = () => {
     auth.signOut();
   };
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 0) {
+      setIsNavFixed(true);
+    } else {
+      setIsNavFixed(false);
+    }
+  });
+
+  const navClass = isNavFixed ? "fixed-top" : "";
 
 
   /*********************************************Select dropdown below**********************************************************/
@@ -130,7 +141,7 @@ export default function Navigation() {
   return (
     <>
       <div>
-        <Navbar className="py-3" variant="dark" style={{ background: "#212529" }}>
+        <Navbar className={`py-3 ${navClass}`} variant="dark" style={{ background: "#212529" }}>
           <Container>
             <Navbar.Brand href="/home">
               <img src={image1} alt="Logo" style={{ maxWidth: "150px", maxHeight: "30px" }} />

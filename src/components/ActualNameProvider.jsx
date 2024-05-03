@@ -16,7 +16,7 @@ export const ActualNameProvider = ({ children }) => {
         const response = await fetch(`https://movie-app-backend-d3ba.onrender.com/extractname/${currentUser.uid}`); // Assuming the API is served from the same host
         if (response.ok) {
           const data = await response.json();
-          /*           console.log("Actual name response:", data); */
+          console.log("Actual name response:", data);
           if (data.length > 0) {
             setActualName(data[0].actual_name);
           } else {
