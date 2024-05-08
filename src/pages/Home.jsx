@@ -1,22 +1,15 @@
 //Home.jsx
 import { useContext, useEffect, useState } from "react";
-import { SearchContext } from "../components/SearchProvider" // Import the UseSearch context
-
-import AddMovieModal from "../components/AddMovieModal";
 import { Link, useNavigate } from "react-router-dom";
 import Hero from "../components/Carousel";
-
 import { AuthContext } from "../components/AuthProvider";
 
-
 export default function Home() {
-  const { searchValue } = useContext(SearchContext) // Get searchValue from context
-  const [movies, setMovies] = useState([]);
   const [displayRomanceMovies, setDisplayRomanceMovies] = useState([])
   const [displayActionMovies, setDisplayActionMovies] = useState([])
   const [displayBiographyMovies, setDisplayBiographyMovies] = useState([])
   const [displayTrendingMovies, setDisplayTrendingMovies] = useState([])
-  const [selectMovieID, setSelectMovieID] = useState(null)
+
   const [heroData, setHeroData] = useState([]);
   console.log(heroData)
 
@@ -28,19 +21,7 @@ export default function Home() {
     setHeroData(data);
   };
 
-  const requestMovie = async (searchQuery) => { //updates the movies array from [] to fetching movies from searchQuery
-    const url = `https://www.omdbapi.com/?s=${searchQuery}&apikey=eb03f9ad&type=movie`;
 
-    const response = await fetch(url);
-    const responseJson = await response.json();
-
-    if (responseJson.Response === "True") {
-      setMovies(responseJson.Search);
-    } else {
-      setMovies([]);
-      console.error(responseJson.Error);
-    }
-  };
 
   const trendingImdbIDs = [
     "tt15239678",//dune part 2
@@ -147,14 +128,10 @@ export default function Home() {
 
 
 
-  useEffect(() => {
-    requestMovie(searchValue); // Use searchValue from context
-  }, [searchValue]); // Re-run effect when searchValue changes
 
 
-  const handleClose = () => {
-    setSelectMovieID(null); // Reset the movieID back to null when modal is closed
-  }
+
+
 
   /*   const handleClose = () => setSelectMovieID(null) //Reset the movieID back to null when modal is close */
 
@@ -204,7 +181,7 @@ export default function Home() {
               </Link>
             </div>
           ))}
-          <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} favouriteMovieData={movies.find(movie => movie.imdbID === selectMovieID)} /> {/* Modal only shows if movieID is not null */}
+
         </div>
       </div>
     </div>

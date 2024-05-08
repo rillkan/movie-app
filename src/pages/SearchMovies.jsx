@@ -1,3 +1,5 @@
+//SearchMovies.jsx
+
 import { useContext, useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { SearchContext } from '../components/SearchProvider';
@@ -66,14 +68,14 @@ export default function SearchMovies() {
       </Form>
       <div className="container-fluid">
         <div className="row">
-          {movies.map((movie) => (
-            <div key={movie.imdbID} className="col-md-2 mt-5">
-              <Link to={`/moviedetails/${movie.imdbID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img src={movie.Poster} alt={movie.Title} style={{ width: '80%', borderRadius: '20px' }} />
-                <p>{movie.Title} ({movie.Year})</p>
-                <p>{movie.Director}</p>
+          {movies.map((displayMovie) => (
+            <div key={displayMovie.imdbID} className="col-md-2 mt-5">
+              <Link to={`/moviedetails/${displayMovie.imdbID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <img src={displayMovie.Poster} alt={displayMovie.Title} style={{ width: '80%', borderRadius: '20px' }} />
+                <p>{displayMovie.Title} ({displayMovie.Year})</p>
+                <p>{displayMovie.Director}</p>
               </Link>
-              <Button onClick={() => handleShow(movie.imdbID)}>Favourites</Button> {/* This arrow function ensures that handleShow is not called immediately during rendering, but only when the button is clicked. If removed, it will trigger immediately */}
+              <Button onClick={() => handleShow(displayMovie.imdbID)}>Favourites</Button> {/* This arrow function ensures that handleShow is not called immediately during rendering, but only when the button is clicked. If removed, it will trigger immediately */}
             </div>
           ))}
           <AddMovieModal show={selectMovieID !== null} handleClose={handleClose} favouriteMovieData={movies.find(movie => movie.imdbID === selectMovieID)} /> {/* Modal only shows if movieID is not null */}

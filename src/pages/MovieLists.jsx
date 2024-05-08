@@ -86,7 +86,7 @@ export default function MovieLists() {
             <th>Review</th>
             <th>Rating</th>
             <th>Date Watched</th>
-            <th>imdb</th>
+            {/* <th>imdb</th> */}
             <th>Action</th>
           </tr>
         </thead>
@@ -95,10 +95,10 @@ export default function MovieLists() {
             <Spinner animation="border" className="ms-3 mt-3" variant="primary"></Spinner>
           )}
           {userMovieLists.length > 0 && userMovieLists.map((userInputMovieData, index) => (
-            <tr key={userInputMovieData.imdb_id}>
+            <tr key={userInputMovieData.movie_id}>
               <td>{index + 1}</td>
               <td>
-                <Link to={`/moviedetails/${userInputMovieData.imdb_id}`}>
+                <Link to={`/moviedetails/${userInputMovieData.movie_id}`}>
                   <img src={userInputMovieData.movie_poster} />
                 </Link>
               </td>
@@ -106,7 +106,7 @@ export default function MovieLists() {
               <td>{userInputMovieData.personal_review}</td>
               <td>{renderStars(userInputMovieData.movie_rating)}</td>
               <td>{formatDate(userInputMovieData.date_watched)}</td>
-              <td>{userInputMovieData.imdb_id}</td>
+              {/* <td>{userInputMovieData.imdbID}</td> */}
               <td>
                 <Button
                   variant="danger"
@@ -122,7 +122,7 @@ export default function MovieLists() {
           ))}
         </tbody>
       </Table>
-      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieId={selectedMovie} forUpdate={userMovieLists.find(movie => movie.imdbID === selectedMovie)} />
+      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieId={selectedMovie} forUpdate={userMovieLists.find(movie => movie.movie_id === selectedMovie)} />
     </>
 
   )
