@@ -10,8 +10,11 @@ export default function UpdateMovieModal({ show, handleClose, movieId, forUpdate
   const [date, setDate] = useState("");
   const [movie_rating, setMovieRating] = useState(0); // State for movie rating
   const dispatch = useDispatch();
-  /*   console.log(`Receive movie_id succesfully to UpdateModal from MovieLists`, movie_id) */
-  console.log("For update:", forUpdate);
+
+  const { Poster, Title, Year } = forUpdate || {}
+  console.log("For update Poster:", Poster);
+  console.log("For update Title:", Title);
+  console.log("For update Year:", Year);
 
   const handleRatingChange = (rating) => {
     setMovieRating(rating);
@@ -43,7 +46,6 @@ export default function UpdateMovieModal({ show, handleClose, movieId, forUpdate
         onHide={handleClose}
         animation={false}
         centered
-
       >
         <Container fluid>
           <Modal.Header closeButton></Modal.Header>
@@ -51,12 +53,27 @@ export default function UpdateMovieModal({ show, handleClose, movieId, forUpdate
           <Modal.Body>
             <Row>
               <Col md={6}>
+                {forUpdate && (
+                  <div>
+                    <img
+                      src={forUpdate.Poster}
+                      alt={forUpdate.Title}
+                      style={{ maxHeight: "300px", borderRadius: '10px' }}
+                    />
+                    <h2>{forUpdate.Title}({forUpdate.Year})</h2>
+                  </div>
+                )}
+              </Col>
+              <Col md={6}>
                 <Form onSubmit={handleSubmit}>
+                  {/* Display movie poster */}
+
+
                   <Form.Group controlId="review">
                     <Form.Label>Review</Form.Label>
                     <Form.Control
-                      as="textarea" // Change the input type to textarea
-                      rows={4} // Set the number of rows to determine the height
+                      as="textarea"
+                      rows={4}
                       type="text"
                       value={userReview}
                       onChange={(e) => setUserReview(e.target.value)}
