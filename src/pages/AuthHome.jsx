@@ -43,7 +43,7 @@ export default function AuthHome() {
       ); /*       const res = await axios.post(`${url}/signup`, { username, password, name }) */
       const userUid = res.user.uid;
       console.log("User UID:", userUid);
-      const response = await axios.post('https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev/signup', { user_uid: userUid, actual_name: actualName });
+      const response = await axios.post('https://movie-app-backend-d3ba.onrender.com/signup', { user_uid: userUid, actual_name: actualName });
       setActualName(actualName); // Set actualName after sign up
       console.log(response.data);
       console.log(res.user)

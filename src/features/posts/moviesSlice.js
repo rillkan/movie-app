@@ -6,7 +6,7 @@ import axios from "axios"
 /* import { db, storage } from "../../firebase"; */
 
 
-const BASE_URL = "https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev"
+const BASE_URL = "https://movie-app-backend-d3ba.onrender.com"
 
 //Async thunk for fetching users movies
 export const fetchMoviesByUser = createAsyncThunk( //async operation are tasks that may takes time to render
