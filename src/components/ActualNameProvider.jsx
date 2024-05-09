@@ -13,7 +13,7 @@ export const ActualNameProvider = ({ children }) => {
   useEffect(() => {
     const fetchActualName = async () => {
       try {
-        const response = await fetch(`https://2371db49-9e80-407f-9b44-2e5dedea1a5c-00-1e1u5gz9b7dss.picard.replit.dev/extractname/${currentUser.uid}`); // Assuming the API is served from the same host
+        const response = await fetch(`https://movie-app-backend-d3ba.onrender.com/extractname/${currentUser.uid}`); // Assuming the API is served from the same host
         if (response.ok) {
           const data = await response.json();
           console.log("Actual name response:", data);
