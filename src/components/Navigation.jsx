@@ -34,16 +34,16 @@ export default function Navigation() {
 
   /*   const handleClose = () => setSelectMovieID(null) //Reset the movieID back to null when modal is close */
 
-  const handleShow = (movieId, poster, title, release) => {
+  const handleShow = (movieId, displayPoster, displayTitle, displayReleaseYear) => {
     /*     console.log(`Movie ID from Select: ${movieId}`)
         console.log(`Poster: ${poster}`);
         console.log(`Title: ${title}`);
         console.log(`Release: ${release}`) */
     const favouriteMovieData = {
       imdbID: movieId,
-      Poster: poster,
-      Title: title,
-      releaseYear: release
+      Poster: displayPoster,
+      Title: displayTitle,
+      Year: displayReleaseYear
     };
     setFavouriteMovieData(favouriteMovieData);
     setSelectMovieID(movieId)
@@ -130,7 +130,7 @@ export default function Navigation() {
         />
       )}
       <Link to={`/moviedetails/${data.value}`} style={{ textDecoration: 'none' }}>
-        {children}
+        {children} ({data.releaseYear})
       </Link>
 
       <div className="ml-auto"> {/* Use Bootstrap class to push the button to the right */}
