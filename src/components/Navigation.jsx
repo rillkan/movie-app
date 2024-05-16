@@ -23,7 +23,6 @@ export default function Navigation() {
   const [favouriteMovieData, setFavouriteMovieData] = useState(null);
   const [isNavFixed, setIsNavFixed] = useState(false);
 
-  /*   console.log('Actual NAMEEEEEE:', actualName) */
 
   const handleClose = (movieData) => {
     setSelectMovieID(null); // Reset the movieID back to null when modal is closed
@@ -32,13 +31,7 @@ export default function Navigation() {
     }
   }
 
-  /*   const handleClose = () => setSelectMovieID(null) //Reset the movieID back to null when modal is close */
-
   const handleShow = (movieId, displayPoster, displayTitle, displayReleaseYear) => {
-    /*     console.log(`Movie ID from Select: ${movieId}`)
-        console.log(`Poster: ${poster}`);
-        console.log(`Title: ${title}`);
-        console.log(`Release: ${release}`) */
     const favouriteMovieData = {
       imdbID: movieId,
       Poster: displayPoster,
@@ -100,7 +93,6 @@ export default function Navigation() {
         setOptions([]);
         return;
       }
-
       const response = await fetch(`https://www.omdbapi.com/?s=${inputValue}&apikey=eb03f9ad&type=movie`);
       const data = await response.json();
       if (data.Search) {

@@ -8,14 +8,14 @@ import { Link } from 'react-router-dom';
 
 
 export default function SearchMovies() {
-
+  const apiKey = import.meta.env.VITE_API_OMDB
   const { searchValue, setSearchValue } = useContext(SearchContext)
   const [movies, setMovies] = useState([]);
   const [selectMovieID, setSelectMovieID] = useState(null)
 
 
   const requestMovie = async (searchQuery) => { //updates the movies array from [] to fetching movies from searchQuery
-    const url = `https://www.omdbapi.com/?s=${searchQuery}&apikey=eb03f9ad&type=movie`;
+    const url = `https://www.omdbapi.com/?s=${searchQuery}&apikey=${apiKey}&type=movie`;
 
     const response = await fetch(url);
     const responseJson = await response.json();

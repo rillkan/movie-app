@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const Hero = ({ onDataLoaded }) => {
   const [heroData, setHeroData] = useState([]);
 
+
   const fetchData = async () => {
     const imdbIds = [
       "tt1285016", // The Social Network
