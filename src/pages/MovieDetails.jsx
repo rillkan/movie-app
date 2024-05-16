@@ -8,12 +8,13 @@ export default function MovieDetails() {
   const { id } = useParams(); //receives the imdbID from URL and call it 'id '. Refer from Home.jsx. It extracts the imdbID from movie.imdbID
   const [movieData, setMovieData] = useState(null);
   const [movieReviewsandNames, setMovieReviewsandNames] = useState(null)
+  const apiKey = import.meta.env.VITE_API_OMDB
 
   useEffect(() => {
     console.log("Received imdb_id:", id);
     const fetchMovieData = async () => {
       try {
-        const response = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=eb03f9ad&plot=full`); //uses the id from URL to fetch
+        const response = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=${apiKey}&plot=full`); //uses the id from URL to fetch
         const data = await response.json();
         setMovieData(data);
       } catch (error) {

@@ -17,6 +17,7 @@ export default function Navigation() {
   const auth = getAuth();
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext); // Get username from context
+  const apiKey = import.meta.env.VITE_API_OMDB
 
   const { actualName } = useContext(ActualNameContext)
   const [selectMovieID, setSelectMovieID] = useState(null)
@@ -93,7 +94,7 @@ export default function Navigation() {
         setOptions([]);
         return;
       }
-      const response = await fetch(`https://www.omdbapi.com/?s=${inputValue}&apikey=eb03f9ad&type=movie`);
+      const response = await fetch(`https://www.omdbapi.com/?s=${inputValue}&apikey=${apiKey}&type=movie`);
       const data = await response.json();
       if (data.Search) {
         const movies = data.Search.map(movie => ({

@@ -9,6 +9,7 @@ export default function Home() {
   const [displayActionMovies, setDisplayActionMovies] = useState([])
   const [displayBiographyMovies, setDisplayBiographyMovies] = useState([])
   const [displayTrendingMovies, setDisplayTrendingMovies] = useState([])
+  const apiKey = import.meta.env.VITE_API_OMDB
 
   const [heroData, setHeroData] = useState([]);
   console.log(heroData)
@@ -79,7 +80,7 @@ export default function Home() {
   };
 
   const displayTrendingMovie = async () => {
-    const urls = trendingImdbIDs.map(imdbID => `https://www.omdbapi.com/?i=${imdbID}&apikey=eb03f9ad`);
+    const urls = trendingImdbIDs.map(imdbID => `https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`);
     const responses = await Promise.all(urls.map(url => fetch(url)));
     const moviesData = await Promise.all(responses.map(response => response.json()));
 
@@ -89,7 +90,7 @@ export default function Home() {
   };
 
   const displayActionMovie = async () => {
-    const urls = actionImdbIDs.map(imdbID => `https://www.omdbapi.com/?i=${imdbID}&apikey=eb03f9ad`);
+    const urls = actionImdbIDs.map(imdbID => `https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`);
     const responses = await Promise.all(urls.map(url => fetch(url)));
     const moviesData = await Promise.all(responses.map(response => response.json()));
 
@@ -99,7 +100,7 @@ export default function Home() {
   };
 
   const displayBiographyMovie = async () => {
-    const urls = biographyImdbIDs.map(imdbID => `https://www.omdbapi.com/?i=${imdbID}&apikey=eb03f9ad`);
+    const urls = biographyImdbIDs.map(imdbID => `https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`);
     const responses = await Promise.all(urls.map(url => fetch(url)));
     const moviesData = await Promise.all(responses.map(response => response.json()));
 
@@ -109,7 +110,7 @@ export default function Home() {
   };
 
   const displayRomanceMovie = async () => {
-    const urls = romanceImdbIDs.map(imdbID => `https://www.omdbapi.com/?i=${imdbID}&apikey=eb03f9ad`);
+    const urls = romanceImdbIDs.map(imdbID => `https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`);
     const responses = await Promise.all(urls.map(url => fetch(url)));
     const moviesData = await Promise.all(responses.map(response => response.json()));
 
