@@ -12,11 +12,11 @@ export default function UpdateMovieModal({ show, handleClose, movieId, forUpdate
   const dispatch = useDispatch();
   console.log("For Update from Modal:", forUpdate)
 
-  const { movie_poster, movie_name, movie_year } = forUpdate || {}
-  console.log("For update Poster:", movie_poster);
-  console.log("For update Title:", movie_name);
-  console.log("For update Year:", movie_year);
-
+  /*   const { movie_poster, movie_name, movie_year } = forUpdate || {}
+    console.log("For update Poster:", movie_poster);
+    console.log("For update Title:", movie_name);
+    console.log("For update Year:", movie_year);
+   */
   const handleRatingChange = (rating) => {
     setMovieRating(rating);
   };

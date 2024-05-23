@@ -119,22 +119,22 @@ const moviesSlice = createSlice({
       const payload1 = action.payload
       console.log('Payload1: ', payload1)
       state.movies2 = payload1 //1. append the new data to the empty array movies2: []
-      console.log(action.payload)
       state.loading = false; //2. change the boolean value to from TRUE to FALSE
     })
     builder.addCase(saveMovie.fulfilled, (state, action) => {
-      state.movies2 = [action.payload, ...state.movies2] //updates the state.movies2 value 
+      state.movies2 = [action.payload, ...state.movies2] //updates the state.movies2 value
+      console.log(`This is addMovie ActionPayload `, action.payload)
     })
     builder.addCase(deleteMovie.fulfilled, (state, action) => {
       // Logic to remove the deleted movie from state
 
-      console.log(`This is action.payload from delete: `, action.payload)
+      console.log(`This is deleteMovie Action Payload: `, action.payload)
       const deletedMovieId = action.payload.idReplit
       state.movies2 = state.movies2.filter(banana => banana.movie_id !== deletedMovieId);
     });
     builder.addCase(updateMovie.fulfilled, (state, action) => {
       const updatedMovie = action.payload.newData;
-      console.log('This is updatedMovie Action PAYLOAD:', updatedMovie)
+      console.log('This is updatedMovie Action Payload:', updatedMovie)
       console.log(state.movies2)
       const index = state.movies2.findIndex((movie) => movie.movie_id === updatedMovie.movie_id);
       if (index !== -1) {
