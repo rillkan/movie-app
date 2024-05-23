@@ -10,11 +10,12 @@ export default function UpdateMovieModal({ show, handleClose, movieId, forUpdate
   const [date, setDate] = useState("");
   const [movie_rating, setMovieRating] = useState(0); // State for movie rating
   const dispatch = useDispatch();
+  console.log("For Update from Modal:", forUpdate)
 
-  const { Poster, Title, Year } = forUpdate || {}
-  console.log("For update Poster:", Poster);
-  console.log("For update Title:", Title);
-  console.log("For update Year:", Year);
+  const { movie_poster, movie_name, movie_year } = forUpdate || {}
+  console.log("For update Poster:", movie_poster);
+  console.log("For update Title:", movie_name);
+  console.log("For update Year:", movie_year);
 
   const handleRatingChange = (rating) => {
     setMovieRating(rating);
@@ -56,11 +57,11 @@ export default function UpdateMovieModal({ show, handleClose, movieId, forUpdate
                 {forUpdate && (
                   <div>
                     <img
-                      src={forUpdate.Poster}
-                      alt={forUpdate.Title}
+                      src={forUpdate.movie_poster}
+                      alt={forUpdate.movie_name}
                       style={{ maxHeight: "300px", borderRadius: '10px' }}
                     />
-                    <h2>{forUpdate.Title}({forUpdate.Year})</h2>
+                    <h2>{forUpdate.movie_name}({forUpdate.movie_year})</h2>
                   </div>
                 )}
               </Col>

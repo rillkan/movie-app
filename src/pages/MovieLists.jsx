@@ -31,8 +31,11 @@ export default function MovieLists() {
   }, [dispatch, userId]); //only triggers when it dispatches
 
   useEffect(() => {
-    console.log("Lists of all movies:", userMovieLists); // Log the userMovieLists array
-  }, [userMovieLists]);
+    console.log("Lists of all movies:", userMovieLists);
+    console.log("Current selected movie ID:", selectedMovie);
+    const forUpdate = userMovieLists.find(movie => movie.movie_id === selectedMovie);
+    console.log("Movie selected for update:", forUpdate);
+  }, [userMovieLists, selectedMovie]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -61,6 +64,9 @@ export default function MovieLists() {
       </>
     );
   };
+
+  const forUpdate = userMovieLists.find(movie => movie.movie_id === selectedMovie);
+  console.log("Movie selected for update:", forUpdate);
 
   const handleDelete = async (movie_id) => {
     const response = dispatch(deleteMovie(movie_id));
@@ -122,7 +128,7 @@ export default function MovieLists() {
           ))}
         </tbody>
       </Table>
-      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieId={selectedMovie} forUpdate={userMovieLists.find(movie => movie.movie_id === selectedMovie)} />
+      <UpdateMovieModal show={showUpdateModal} handleClose={() => setShowUpdateModal(false)} movieId={selectedMovie} forUpdate={forUpdate} />
     </>
 
   )

@@ -42,7 +42,7 @@ export default function Navigation() {
     setFavouriteMovieData(favouriteMovieData);
     setSelectMovieID(movieId)
   }
-  console.log('this is from Select: ', favouriteMovieData)
+  /*   console.log('this is from Select: ', favouriteMovieData) */
 
   /*   console.log("searchValue from context:", searchValue); */
   /*   console.log('this is uid:', currentUser.uid) */
