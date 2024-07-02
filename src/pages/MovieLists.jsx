@@ -91,7 +91,7 @@ export default function MovieLists() {
             <th>Rating</th>
             <th>Date Watched</th>
             {/* <th>Movie Released</th> */}
-            <th>imdb</th>
+            {/* <th>imdb</th> */}
             <th>Action</th>
           </tr>
         </thead>
@@ -112,7 +112,7 @@ export default function MovieLists() {
               <td>{renderStars(userInputMovieData.movie_rating)}</td>
               <td>{formatDate(userInputMovieData.date_watched)}</td>
               {/* <td>{userInputMovieData.movie_year}</td> */}
-              <td>{userInputMovieData.imdb_id}</td>
+              {/* <td>{userInputMovieData.imdb_id}</td> */}
               <td>
                 <Button
                   variant="danger"
