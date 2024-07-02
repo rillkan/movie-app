@@ -33,8 +33,6 @@ export default function MovieLists() {
   useEffect(() => {
     console.log("Lists of all movies:", userMovieLists);
     console.log("Current selected movie ID:", selectedMovie);
-    const forUpdate = userMovieLists.find(movie => movie.movie_id === selectedMovie);
-    console.log("Movie selected for update:", forUpdate);
   }, [userMovieLists, selectedMovie]);
 
   const formatDate = (dateString) => {
@@ -92,8 +90,8 @@ export default function MovieLists() {
             <th>Review</th>
             <th>Rating</th>
             <th>Date Watched</th>
-            <th>Movie Released</th>
-            {/* <th>imdb</th> */}
+            {/* <th>Movie Released</th> */}
+            <th>imdb</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -105,7 +103,7 @@ export default function MovieLists() {
             <tr key={userInputMovieData.movie_id}>
               <td>{index + 1}</td>
               <td>
-                <Link to={`/moviedetails/${userInputMovieData.movie_id}`}>
+                <Link to={`/moviedetails/${userInputMovieData.imdb_id}`}>
                   <img src={userInputMovieData.movie_poster} />
                 </Link>
               </td>
@@ -113,8 +111,8 @@ export default function MovieLists() {
               <td>{userInputMovieData.personal_review}</td>
               <td>{renderStars(userInputMovieData.movie_rating)}</td>
               <td>{formatDate(userInputMovieData.date_watched)}</td>
-              <td>{userInputMovieData.movie_year}</td>
-              {/* <td>{userInputMovieData.imdbID}</td> */}
+              {/* <td>{userInputMovieData.movie_year}</td> */}
+              <td>{userInputMovieData.imdb_id}</td>
               <td>
                 <Button
                   variant="danger"
