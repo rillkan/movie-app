@@ -60,6 +60,7 @@ export const saveMovie = createAsyncThunk(
       imdb_id: imdbID
     };
     const response = await axios.post(`${BASE_URL}/addallmoviedetails`, data);
+
     return response.data;
   }
 );
@@ -127,7 +128,6 @@ const moviesSlice = createSlice({
     })
     builder.addCase(deleteMovie.fulfilled, (state, action) => {
       // Logic to remove the deleted movie from state
-
       console.log(`This is deleteMovie Action Payload: `, action.payload)
       const deletedMovieId = action.payload.idReplit
       state.movies2 = state.movies2.filter(banana => banana.movie_id !== deletedMovieId);
