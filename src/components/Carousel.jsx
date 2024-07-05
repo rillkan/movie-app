@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Hero = ({ onDataLoaded }) => {
   const [heroData, setHeroData] = useState([]);
-  const apiKey = import.meta.env.VITE_API_OMDB
+
 
   const fetchData = async () => {
     const imdbIds = [
@@ -24,7 +24,7 @@ const Hero = ({ onDataLoaded }) => {
     const shuffledIds = imdbIds.sort(() => Math.random() - 0.5);
 
     const promises = shuffledIds.map(imdbId =>
-      axios.get(`https://www.omdbapi.com/?i=${imdbId}&apikey=${apiKey}`)
+      axios.get(`https://www.omdbapi.com/?i=${imdbId}&apikey=eb03f9ad`)
     );
 
     try {
