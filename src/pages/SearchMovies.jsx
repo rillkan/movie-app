@@ -47,10 +47,7 @@ export default function SearchMovies() {
   }
 
   return (
-
-
-
-    <div className="text-white" style={{ height: '3000px', background: 'linear-gradient(#051923, #003554 )' }}>
+    <div className="text-white" style={{ height: '3000px', background: 'linear-gradient(#051923, #003554 )', overflowX: 'hidden' }}>
       <h1>All Movies</h1>
       <Form className="row">
         <div className="col-md-6">

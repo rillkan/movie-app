@@ -47,17 +47,17 @@ export default function MovieDetails() {
 
   return (
 
-    <div className="fluid text-white" style={{ height: '3000px', background: 'linear-gradient(#051923, #003554 )' }}>
+    <div className="fluid text-white" style={{ height: '5000px', background: 'linear-gradient(#051923, #003554 )' }}>
       <Container>
         <Row>
           <Col md={6}>
             <div>
-              <h1>{movieData.Title}</h1>
+              <h1 className="mt-2">{movieData.Title}</h1>
               <img src={movieData.Poster} alt={movieData.Title} />
             </div>
           </Col>
           <Col md={6}>
-            <div>
+            <div className="mt-5">
               <p>Year: {movieData.Year}</p>
               <p>Genre: {movieData.Genre}</p>
               <p>Director: {movieData.Director}</p>
@@ -85,7 +85,6 @@ export default function MovieDetails() {
           </Col>
         </Row>
       </Container>
-
     </div>
 
   );

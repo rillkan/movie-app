@@ -23,7 +23,7 @@ export default function App() {
   2)movieSlice.js
   3)AuthHome.jsx
   4)MovieDetails.jsx
-  Make sure this is running = https://replit.com/@sigma-school-full-time-capst/Capstone-Project-API-mjkan96
+  Make sure this is running to deploy it using replit = https://replit.com/@sigma-school-full-time-capst/Capstone-Project-API-mjkan96
   */
   return (
     <Provider store={store}>
